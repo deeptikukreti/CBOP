@@ -11,4 +11,8 @@
     <color name="light_grey">#747D92</color>
     <color name="dark_grey">#555863</color>
     <color name="divider_color">#E4E4E4</color>
+    <color name="background">#EBEDF2</color>
+    <color name="fadedRed">#dc3c41</color>
+    <color name="lightNavy">#133269</color>
+    <color name="lightNavyTwo">#173770</color>
 </resources>

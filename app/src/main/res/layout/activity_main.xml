@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
 
    <include
@@ -45,6 +45,7 @@
             android:padding="10dp"
             android:text="EOS"
             android:textColor="@color/btn_text_color"
+            android:fontFamily="@font/montserrat_regular"
             android:textSize="12sp" />
 
         <View
@@ -58,11 +59,12 @@
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/radio_button_center_selector"
+            android:background="@drawable/radio_button_end_selector"
             android:button="@null"
             android:gravity="center"
             android:padding="10dp"
             android:text="WorkShop Repair"
+            android:fontFamily="@font/montserrat_regular"
             android:textColor="@color/btn_text_color"
             android:textSize="12sp" />
 

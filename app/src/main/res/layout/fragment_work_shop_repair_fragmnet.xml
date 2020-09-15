@@ -3,179 +3,208 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    tools:context=".EOSFragment">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/start_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".05" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/end_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".95" />
-
-    <TextView
-        android:id="@+id/selectTypeTextView"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/grey_border_rectangle"
-        android:drawableEnd="@drawable/path"
-        android:padding="16dp"
-        android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/SearchByVINEditText"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/grey_border_rectangle"
-        android:drawableEnd="@drawable/path"
-        android:padding="16dp"
-        android:text="Pro 2029"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/selectTypeTextView" />
-
-    <EditText
-        android:id="@+id/DurationEditText"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/grey_border_rectangle"
-        android:drawableEnd="@drawable/path"
-        android:ems="10"
-        android:hint="Duration: Last Month"
-        android:padding="16dp"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/SearchByVINEditText" />
-
-    <TextView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="Showing for all 26 vehicles"
-        android:textColor="@color/dark_blue"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/overviewLayout"
-        app:layout_constraintEnd_toStartOf="@id/overviewLayout"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toTopOf="@id/overviewLayout" />
-
-    <LinearLayout
-        android:id="@+id/detailViewLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintTop_toBottomOf="@id/DurationEditText">
-
-        <LinearLayout
-            android:id="@+id/detailViewBg"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/circle"
-            android:backgroundTint="@color/light_grey"
-            android:drawableStart="@drawable/group3"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/group3" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/detailViewTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Detail View"
-            android:textColor="@color/light_grey"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/overviewLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@id/detailViewLayout"
-        app:layout_constraintTop_toTopOf="@id/detailViewLayout">
-
-        <LinearLayout
-            android:id="@+id/overviewBg"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/circle"
-            android:drawableStart="@drawable/group3"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_overview" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/overViewTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Overview"
-            android:textColor="@color/dark_blue"
-            android:textSize="14sp" />
-    </LinearLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="gone"
-        android:id="@+id/detailViewSummaryLayout"
-        android:layout_width="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/overviewLayout"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/detailViewRecyclerView"
+        android:fillViewport="true"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
 
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="visible"
-        android:id="@+id/overviewSummaryLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/overviewLayout">
-        <include
-            layout="@layout/workshop_repair_overview_layout"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/start_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/end_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".95" />
+
+            <TextView
+                android:id="@+id/selectTypeTextView"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/grey_border_rectangle"
+                android:drawableEnd="@drawable/path"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center|start"
+                android:text="Model"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_semi_bold"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/SearchByVINEditText"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/grey_border_rectangle"
+                android:drawableEnd="@drawable/path"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center|start"
+                android:text="Pro 2029"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_semi_bold"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/selectTypeTextView" />
+
+            <EditText
+                android:id="@+id/DurationEditText"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/grey_border_rectangle"
+                android:drawableEnd="@drawable/path"
+                android:ems="10"
+                android:hint="Duration: Last Month"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center|start"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_semi_bold"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/SearchByVINEditText" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="Showing for all 26 vehicles"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_regular"
+                app:layout_constraintBottom_toBottomOf="@id/overviewLayout"
+                app:layout_constraintEnd_toStartOf="@id/overviewLayout"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toTopOf="@id/overviewLayout" />
+
+            <LinearLayout
+                android:id="@+id/detailViewLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintTop_toBottomOf="@id/DurationEditText">
+
+                <LinearLayout
+                    android:id="@+id/detailViewBg"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/light_grey"
+                    android:drawableStart="@drawable/group3"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/group3" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/detailViewTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Detail View"
+                    android:textColor="@color/light_grey"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/overviewLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@id/detailViewLayout"
+                app:layout_constraintTop_toTopOf="@id/detailViewLayout">
+
+                <LinearLayout
+                    android:id="@+id/overviewBg"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/circle"
+                    android:drawableStart="@drawable/group3"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_overview" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/overViewTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Overview"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_bold"/>
+            </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:visibility="gone"
+                android:id="@+id/detailViewSummaryLayout"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/overviewLayout"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detailViewRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:visibility="visible"
+                android:id="@+id/overviewSummaryLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/end_guideline"
+                app:layout_constraintStart_toStartOf="@id/start_guideline"
+                app:layout_constraintTop_toBottomOf="@id/overviewLayout">
+                <include
+                    layout="@layout/workshop_repair_overview_layout"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

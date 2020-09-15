@@ -1,4 +1,4 @@
-package com.example.cbopproject
+package com.example.cbopproject.fragment
 
 import android.app.Activity
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import com.example.cbopproject.activity.MainActivity
+import com.example.cbopproject.R
+import com.example.cbopproject.adapter.DetailViewAdapter
 import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragmnet.*
 
 
@@ -27,24 +30,34 @@ class WorkShopRepairFragmnet : Fragment(),View.OnClickListener  {
     private fun viewInitialization() {
         overviewLayout.setOnClickListener(this)
         detailViewLayout.setOnClickListener(this)
-        detailViewRecyclerView.adapter=DetailViewAdapter(mainActivity!!,true,object :
-            DetailViewAdapter.ClickedPositionInterface{
-            override fun onPositionClicked(position: Int) {
+        detailViewRecyclerView.adapter=
+            DetailViewAdapter(
+                mainActivity!!,
+                true,
+                object :
+                    DetailViewAdapter.ClickedPositionInterface {
+                    override fun onPositionClicked(position: Int) {
 
-            }
+                    }
 
-        })
+                })
     }
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.overviewLayout->{
-                changeOverviewDetailViewBackground(R.color.dark_blue,R.color.light_grey)
+            R.id.overviewLayout ->{
+                changeOverviewDetailViewBackground(
+                    R.color.dark_blue,
+                    R.color.light_grey
+                )
                 detailViewSummaryLayout.visibility=View.GONE
                 overviewSummaryLayout.visibility=View.VISIBLE
             }
-            R.id.detailViewLayout->{
-                changeOverviewDetailViewBackground(R.color.light_grey,R.color.dark_blue)
+            R.id.detailViewLayout ->{
+                changeOverviewDetailViewBackground(
+                    R.color.light_grey,
+                    R.color.dark_blue
+                )
                 overviewSummaryLayout.visibility=View.GONE
                 detailViewSummaryLayout.visibility=View.VISIBLE
             }
@@ -52,9 +65,9 @@ class WorkShopRepairFragmnet : Fragment(),View.OnClickListener  {
     }
     private fun changeOverviewDetailViewBackground(overviewColor:Int,detailViewColor:Int){
         overviewBg.backgroundTintList = ContextCompat.getColorStateList(mainActivity!!, overviewColor);
-        overViewTextView.setTextColor( overviewColor)
+        overViewTextView.setTextColor(ContextCompat.getColorStateList(mainActivity!!, overviewColor))
         detailViewBg.backgroundTintList = ContextCompat.getColorStateList(mainActivity!!, detailViewColor);
-        detailViewTextView.setTextColor( detailViewColor)
+        detailViewTextView.setTextColor( ContextCompat.getColorStateList(mainActivity!!, detailViewColor))
     }
 
     override fun onAttach(activity : Activity) {
