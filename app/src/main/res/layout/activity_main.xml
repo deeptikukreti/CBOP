@@ -12,22 +12,153 @@
        android:id="@+id/header"
        layout="@layout/header_layout"/>
 
-    <RelativeLayout
-        android:id="@+id/horizontalViewLayout"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/radio_group_bg"
+      <HorizontalScrollView
+    android:id="@+id/horizontalScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:background="@drawable/radio_group_bg"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/header">
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"/>
-    </RelativeLayout>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/eosRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/radio_button_start_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="EOS"
+
+            android:textColor="@color/btn_text_color"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e2e2e2" />
+
+
+        <RadioButton
+            android:id="@+id/workShopRepairRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/radio_button_center_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="WorkShop Repair"
+            android:textColor="@color/btn_text_color"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e2e2e2" />
+
+        <RadioButton
+            android:id="@+id/upTimeRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/radio_button_center_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="UpTime"
+            android:textColor="@color/btn_text_color"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e2e2e2" />
+
+        <RadioButton
+            android:id="@+id/actionPlaningRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/radio_button_center_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Action Planing"
+            android:textColor="@color/btn_text_color"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e2e2e2" />
+
+        <RadioButton
+            android:id="@+id/commercialRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/radio_button_center_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="commercial"
+            android:textColor="@color/btn_text_color"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e2e2e2" />
+
+        <RadioButton
+            android:id="@+id/trainingRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/radio_button_center_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Training &amp; Productivity"
+            android:textColor="@color/btn_text_color"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e2e2e2" />
+
+        <RadioButton
+            android:id="@+id/engineeringRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/radio_button_end_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Engineering"
+            android:textColor="@color/btn_text_color"
+            android:textSize="12sp" />
+    </RadioGroup>
+
+</HorizontalScrollView>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="0dp"
@@ -35,7 +166,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalViewLayout">
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -92,6 +92,7 @@
         app:layout_constraintTop_toBottomOf="@id/DurationEditText">
 
         <LinearLayout
+            android:id="@+id/detailViewBg"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/circle"
@@ -106,6 +107,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/detailViewTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Detail View"
@@ -125,6 +127,7 @@
         app:layout_constraintTop_toTopOf="@id/detailViewLayout">
 
         <LinearLayout
+            android:id="@+id/overviewBg"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/circle"
@@ -138,335 +141,43 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/overViewTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Overview"
             android:textColor="@color/dark_blue"
             android:textSize="14sp" />
     </LinearLayout>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/divider_color"
-        app:layout_constraintTop_toBottomOf="@id/overviewLayout" />
-
-    <LinearLayout
-        android:id="@+id/breakdownLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/divider">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3">
-
-            <ImageView
-                android:id="@+id/ivBill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/bill"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Breakdown tickets"
-                android:textColor="@color/dark_grey"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/ivBill"
-                app:layout_constraintStart_toEndOf="@id/ivBill"
-                app:layout_constraintTop_toTopOf="@id/ivBill" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".7">
-
-            <ImageView
-                android:visibility="visible"
-                android:id="@+id/upArrowIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingStart="16dp"
-                android:src="@drawable/up_arrow"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/minCountTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:textColor="@color/dark_grey"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/upArrowIV"
-                app:layout_constraintEnd_toStartOf="@id/upArrowIV"
-                app:layout_constraintTop_toTopOf="@id/upArrowIV" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/divider_color"
-                app:layout_constraintBottom_toBottomOf="@id/minCountTextView"
-                app:layout_constraintEnd_toStartOf="@id/minCountTextView"
-                app:layout_constraintTop_toTopOf="@id/minCountTextView" />
-
-            <TextView
-                android:id="@+id/maxCountTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="12"
-                android:textColor="@color/dark_blue"
-                android:textSize="22sp"
-                android:fontFamily="@font/montserrat_bold"
-                app:layout_constraintBottom_toBottomOf="@id/divider2"
-                app:layout_constraintEnd_toStartOf="@id/divider2"
-                app:layout_constraintTop_toTopOf="@id/divider2" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:visibility="gone"
-        android:id="@+id/viewOpenTicketText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="VIEW OPEN TICKETS"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:textColor="@color/colorAccent"
-        android:drawablePadding="10dp"
-        android:drawableEnd="@drawable/next"
-        app:layout_constraintTop_toBottomOf="@id/breakdownLayout"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"/>
-
-    <View
-        android:id="@+id/divider3"
+        android:id="@+id/detailViewSummaryLayout"
         android:layout_width="0dp"
-        android:layout_height="1dp"
         android:layout_marginTop="16dp"
-        android:background="@color/divider_color"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintTop_toBottomOf="@id/viewOpenTicketText" />
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/overviewLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
+   <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/detailViewRecyclerView"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
 
-    <LinearLayout
-        android:id="@+id/averageReachTimeLayout"
+       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="visible"
+        android:id="@+id/overviewSummaryLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="@id/end_guideline"
         app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/divider3">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3">
-
-            <ImageView
-                android:id="@+id/ivShape"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/shape"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Avg. reach time"
-                android:textColor="@color/dark_grey"
-                android:textSize="14sp"
-                android:textAlignment="viewStart"
-                app:layout_constraintBottom_toBottomOf="@id/ivShape"
-                app:layout_constraintStart_toEndOf="@id/ivShape"
-                app:layout_constraintTop_toTopOf="@id/ivShape" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".7">
-            <ImageView
-                android:visibility="visible"
-                android:id="@+id/upArrowGreenIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingStart="16dp"
-                android:src="@drawable/down_arrow"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/minHourTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="-hrs"
-                android:textColor="@color/dark_grey"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/upArrowGreenIV"
-                app:layout_constraintEnd_toStartOf="@id/upArrowGreenIV"
-                app:layout_constraintTop_toTopOf="@id/upArrowGreenIV"/>
-
-            <View
-                android:id="@+id/divider4"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/divider_color"
-                app:layout_constraintBottom_toBottomOf="@id/minHourTextView"
-                app:layout_constraintEnd_toStartOf="@id/minHourTextView"
-                app:layout_constraintTop_toTopOf="@id/minHourTextView" />
-
-            <TextView
-                android:id="@+id/maxHoursTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="-hrs"
-                android:textColor="@color/dark_blue"
-                android:textSize="22sp"
-                android:fontFamily="@font/montserrat_bold"
-                app:layout_constraintBottom_toBottomOf="@id/divider4"
-                app:layout_constraintEnd_toStartOf="@id/divider4"
-                app:layout_constraintTop_toTopOf="@id/divider4" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/divider5"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/divider_color"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintTop_toBottomOf="@id/averageReachTimeLayout" />
-
-    <LinearLayout
-        android:id="@+id/averageRepairTimeLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/divider5">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".3">
-
-            <ImageView
-                android:id="@+id/ivRepair"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/group"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Avg. repair time"
-                android:textAlignment="viewStart"
-                android:textColor="@color/dark_grey"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/ivRepair"
-                app:layout_constraintStart_toEndOf="@id/ivRepair"
-                app:layout_constraintTop_toTopOf="@id/ivRepair" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".7">
-
-            <ImageView
-                android:id="@+id/upArrowGreenIV2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:src="@drawable/down_arrow"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/minRepairHourTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="-hrs"
-                android:textColor="@color/dark_grey"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/upArrowGreenIV2"
-                app:layout_constraintEnd_toStartOf="@id/upArrowGreenIV2"
-                app:layout_constraintTop_toTopOf="@id/upArrowGreenIV2" />
-
-            <View
-                android:id="@+id/divider6"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/divider_color"
-                app:layout_constraintBottom_toBottomOf="@id/minRepairHourTextView"
-                app:layout_constraintEnd_toStartOf="@id/minRepairHourTextView"
-                app:layout_constraintTop_toTopOf="@id/minRepairHourTextView" />
-
-            <TextView
-                android:id="@+id/maxRepairHoursTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="-hrs"
-                android:textColor="@color/dark_blue"
-                android:textSize="22sp"
-                app:layout_constraintBottom_toBottomOf="@id/divider6"
-                app:layout_constraintEnd_toStartOf="@id/divider6"
-                app:layout_constraintTop_toTopOf="@id/divider6" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/overviewLayout">
+        <include
+            layout="@layout/eos_overview_layout"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
