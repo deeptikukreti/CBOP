@@ -9,10 +9,10 @@
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
         android:background="@color/divider_color"
-    app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/breakdownLayout"
+        android:id="@+id/jobcardsLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -40,7 +40,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Breakdown tickets"
+                android:text="Job Cards"
                 android:textColor="@color/dark_grey"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@id/ivBill"
@@ -117,7 +117,7 @@
         android:textColor="@color/colorAccent"
         android:drawablePadding="10dp"
         android:drawableEnd="@drawable/next"
-        app:layout_constraintTop_toBottomOf="@id/breakdownLayout"
+        app:layout_constraintTop_toBottomOf="@id/jobcardsLayout"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <View
@@ -131,7 +131,7 @@
         app:layout_constraintTop_toBottomOf="@id/viewOpenTicketText" />
 
     <LinearLayout
-        android:id="@+id/averageReachTimeLayout"
+        android:id="@+id/averageWorkshopTimeLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -159,7 +159,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Avg. reach time"
+                android:text="Avg. time in workshop"
                 android:textColor="@color/dark_grey"
                 android:textSize="14sp"
                 android:textAlignment="viewStart"
@@ -232,17 +232,15 @@
         android:background="@color/divider_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/averageReachTimeLayout" />
+        app:layout_constraintTop_toBottomOf="@id/averageWorkshopTimeLayout" />
 
     <LinearLayout
-        android:id="@+id/averageRepairTimeLayout"
+        android:id="@+id/averageRepairMoneyLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider5">
@@ -253,7 +251,7 @@
             android:layout_weight=".3">
 
             <ImageView
-                android:id="@+id/ivRepair"
+                android:id="@+id/ivTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/group"
@@ -265,13 +263,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Avg. repair time"
+                android:text="Avg. spend per repair"
                 android:textAlignment="viewStart"
                 android:textColor="@color/dark_grey"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/ivRepair"
-                app:layout_constraintStart_toEndOf="@id/ivRepair"
-                app:layout_constraintTop_toTopOf="@id/ivRepair"
+                app:layout_constraintBottom_toBottomOf="@id/ivTime"
+                app:layout_constraintStart_toEndOf="@id/ivTime"
+                app:layout_constraintTop_toTopOf="@id/ivTime"
                 app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -294,10 +292,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/minRepairHourTextView"
+                android:id="@+id/minRepairMoneyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-hrs"
+                android:text="$"
                 android:textColor="@color/dark_grey"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@id/upArrowGreenIV2"
@@ -310,22 +308,129 @@
                 android:layout_height="0dp"
                 android:layout_marginEnd="16dp"
                 android:background="@color/divider_color"
-                app:layout_constraintBottom_toBottomOf="@id/minRepairHourTextView"
-                app:layout_constraintEnd_toStartOf="@id/minRepairHourTextView"
-                app:layout_constraintTop_toTopOf="@id/minRepairHourTextView" />
+                app:layout_constraintBottom_toBottomOf="@id/minRepairMoneyTextView"
+                app:layout_constraintEnd_toStartOf="@id/minRepairMoneyTextView"
+                app:layout_constraintTop_toTopOf="@id/minRepairMoneyTextView" />
 
             <TextView
-                android:id="@+id/maxRepairHoursTextView"
+                android:id="@+id/maxRepairMoneyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="-hrs"
+                android:text="$"
                 android:textColor="@color/dark_blue"
                 android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="@id/divider6"
                 app:layout_constraintEnd_toStartOf="@id/divider6"
                 app:layout_constraintTop_toTopOf="@id/divider6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider7"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/divider_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/averageRepairMoneyLayout" />
+
+    <LinearLayout
+        android:id="@+id/averageRepairPercentLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider7">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".3">
+
+            <ImageView
+                android:id="@+id/ivRepair"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/group"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Avg. spend per repair"
+                android:textAlignment="viewStart"
+                android:textColor="@color/dark_grey"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivRepair"
+                app:layout_constraintStart_toEndOf="@id/ivRepair"
+                app:layout_constraintTop_toTopOf="@id/ivRepair"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".7">
+
+            <ImageView
+                android:id="@+id/upArrowGreenIV3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:src="@drawable/down_arrow"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/minRepairPercentTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="%"
+                android:textColor="@color/dark_grey"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/upArrowGreenIV3"
+                app:layout_constraintEnd_toStartOf="@id/upArrowGreenIV3"
+                app:layout_constraintTop_toTopOf="@id/upArrowGreenIV3" />
+
+            <View
+                android:id="@+id/divider8"
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/divider_color"
+                app:layout_constraintBottom_toBottomOf="@id/minRepairPercentTextView"
+                app:layout_constraintEnd_toStartOf="@id/minRepairPercentTextView"
+                app:layout_constraintTop_toTopOf="@id/minRepairPercentTextView" />
+
+            <TextView
+                android:id="@+id/maxRepairPercentTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="%"
+                android:textColor="@color/dark_blue"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="@id/divider8"
+                app:layout_constraintEnd_toStartOf="@id/divider8"
+                app:layout_constraintTop_toTopOf="@id/divider8" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

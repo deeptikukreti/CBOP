@@ -12,9 +12,9 @@
        android:id="@+id/header"
        layout="@layout/header_layout"/>
 
-      <HorizontalScrollView
+    <HorizontalScrollView
     android:id="@+id/horizontalScrollView"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     android:layout_marginTop="16dp"
@@ -36,7 +36,7 @@
 
         <RadioButton
             android:id="@+id/eosRadioBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:background="@drawable/radio_button_start_selector"
@@ -44,7 +44,6 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="EOS"
-
             android:textColor="@color/btn_text_color"
             android:textSize="12sp" />
 
@@ -56,7 +55,7 @@
 
         <RadioButton
             android:id="@+id/workShopRepairRadioBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:background="@drawable/radio_button_center_selector"
@@ -67,95 +66,95 @@
             android:textColor="@color/btn_text_color"
             android:textSize="12sp" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#e2e2e2" />
+<!--        <View-->
+<!--            android:layout_width="1dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="#e2e2e2" />-->
 
-        <RadioButton
-            android:id="@+id/upTimeRadioBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/radio_button_center_selector"
-            android:button="@null"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="UpTime"
-            android:textColor="@color/btn_text_color"
-            android:textSize="12sp" />
+<!--        <RadioButton-->
+<!--            android:id="@+id/upTimeRadioBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:background="@drawable/radio_button_center_selector"-->
+<!--            android:button="@null"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="10dp"-->
+<!--            android:text="UpTime"-->
+<!--            android:textColor="@color/btn_text_color"-->
+<!--            android:textSize="12sp" />-->
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#e2e2e2" />
+<!--        <View-->
+<!--            android:layout_width="1dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="#e2e2e2" />-->
 
-        <RadioButton
-            android:id="@+id/actionPlaningRadioBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/radio_button_center_selector"
-            android:button="@null"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Action Planing"
-            android:textColor="@color/btn_text_color"
-            android:textSize="12sp" />
+<!--        <RadioButton-->
+<!--            android:id="@+id/actionPlaningRadioBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:background="@drawable/radio_button_center_selector"-->
+<!--            android:button="@null"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="10dp"-->
+<!--            android:text="Action Planing"-->
+<!--            android:textColor="@color/btn_text_color"-->
+<!--            android:textSize="12sp" />-->
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#e2e2e2" />
+<!--        <View-->
+<!--            android:layout_width="1dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="#e2e2e2" />-->
 
-        <RadioButton
-            android:id="@+id/commercialRadioBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/radio_button_center_selector"
-            android:button="@null"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="commercial"
-            android:textColor="@color/btn_text_color"
-            android:textSize="12sp" />
+<!--        <RadioButton-->
+<!--            android:id="@+id/commercialRadioBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:background="@drawable/radio_button_center_selector"-->
+<!--            android:button="@null"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="10dp"-->
+<!--            android:text="commercial"-->
+<!--            android:textColor="@color/btn_text_color"-->
+<!--            android:textSize="12sp" />-->
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#e2e2e2" />
+<!--        <View-->
+<!--            android:layout_width="1dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="#e2e2e2" />-->
 
-        <RadioButton
-            android:id="@+id/trainingRadioBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/radio_button_center_selector"
-            android:button="@null"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Training &amp; Productivity"
-            android:textColor="@color/btn_text_color"
-            android:textSize="12sp" />
+<!--        <RadioButton-->
+<!--            android:id="@+id/trainingRadioBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:background="@drawable/radio_button_center_selector"-->
+<!--            android:button="@null"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="10dp"-->
+<!--            android:text="Training &amp; Productivity"-->
+<!--            android:textColor="@color/btn_text_color"-->
+<!--            android:textSize="12sp" />-->
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#e2e2e2" />
+<!--        <View-->
+<!--            android:layout_width="1dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="#e2e2e2" />-->
 
-        <RadioButton
-            android:id="@+id/engineeringRadioBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/radio_button_end_selector"
-            android:button="@null"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Engineering"
-            android:textColor="@color/btn_text_color"
-            android:textSize="12sp" />
+<!--        <RadioButton-->
+<!--            android:id="@+id/engineeringRadioBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:background="@drawable/radio_button_end_selector"-->
+<!--            android:button="@null"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="10dp"-->
+<!--            android:text="Engineering"-->
+<!--            android:textColor="@color/btn_text_color"-->
+<!--            android:textSize="12sp" />-->
     </RadioGroup>
 
 </HorizontalScrollView>

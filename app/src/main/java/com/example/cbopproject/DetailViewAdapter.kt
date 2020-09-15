@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.single_detail_view_item_layout.view.*
 import kotlinx.android.synthetic.main.single_header_item_layout.view.*
 
-class DetailViewAdapter(var context : Context, var clickedPosition: ClickedPositionInterface) : RecyclerView.Adapter<DetailViewAdapter.ViewHolder>() {
+class DetailViewAdapter(var context : Context, var isRepairWorkshop:Boolean,var clickedPosition: ClickedPositionInterface) : RecyclerView.Adapter<DetailViewAdapter.ViewHolder>() {
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailViewAdapter.ViewHolder {
@@ -18,6 +19,13 @@ class DetailViewAdapter(var context : Context, var clickedPosition: ClickedPosit
 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        /**isRepairWorkshop variable check if we come from
+         *  WorkShopRepairFragment  only then the view will visible*/
+        if (isRepairWorkshop){
+            holder.bindItem(position).serviceHistoryTextView.visibility=View.VISIBLE
+        }else{
+            holder.bindItem(position).serviceHistoryTextView.visibility=View.GONE
+        }
 
     }
 

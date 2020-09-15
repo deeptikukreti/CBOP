@@ -115,9 +115,22 @@
         android:textSize="14sp"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="2 hrs"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout"
         app:layout_constraintEnd_toEndOf="@id/constraintLayout"/>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/serviceHistoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="SERVICE HISTORY"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:drawablePadding="10dp"
+        android:drawableEnd="@drawable/next"
+        app:layout_constraintTop_toBottomOf="@id/avgRepairTimeValue"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@ class EOSFragment : Fragment(),View.OnClickListener {
     private fun viewInitialization() {
         overviewLayout.setOnClickListener(this)
         detailViewLayout.setOnClickListener(this)
-        detailViewRecyclerView.adapter=DetailViewAdapter(mainActivity!!,object :
+        detailViewRecyclerView.adapter=DetailViewAdapter(mainActivity!!,false,object :
             DetailViewAdapter.ClickedPositionInterface{
             override fun onPositionClicked(position: Int) {
 
