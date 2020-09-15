@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cbopproject.R
-import kotlinx.android.synthetic.main.search_filter_single_item_layout.view.*
+import kotlinx.android.synthetic.main.dropdown_single_item_layout.view.*
 
-class SearchByVinAdapter(var context : Context, var searchList:Array<String>, var clickedPosition: SearchFilterInterface) : RecyclerView.Adapter<SearchByVinAdapter.ViewHolder>() {
+class DurationAdapter(var context : Context, var durationList:Array<String>, var clickedPosition: DurationInterface) : RecyclerView.Adapter<DurationAdapter.ViewHolder>() {
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.search_filter_single_item_layout, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.dropdown_single_item_layout, parent, false)
         return ViewHolder(v)
     }
 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(position).textView.text=searchList[position]
+        holder.bindItem(position).textView.text=durationList[position]
      holder.itemView.setOnClickListener {
          clickedPosition.onPositionClicked(position)
      }
@@ -26,17 +26,17 @@ class SearchByVinAdapter(var context : Context, var searchList:Array<String>, va
 
     //this method is giving the size of the list
     override fun getItemCount(): Int {
-        return searchList.size
+        return durationList.size
     }
 
-    //the class is hodling the list view
+    //the class is holding the list view
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItem(position: Int):View {
             return itemView
         }
     }
-     interface SearchFilterInterface{
+     interface DurationInterface{
          fun onPositionClicked(position:Int)
      }
 

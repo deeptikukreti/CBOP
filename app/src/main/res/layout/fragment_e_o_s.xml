@@ -75,64 +75,88 @@
 
             </androidx.cardview.widget.CardView>
 
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/searchLayout"
+
+            <RelativeLayout
+                android:id="@+id/searchOrDropdownLayout"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/search_bg"
-                android:orientation="horizontal"
-                android:weightSum="1"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
                 app:layout_constraintTop_toBottomOf="@id/filterByTextView">
 
-
-                <EditText
-                    android:id="@+id/SearchByVINEditText"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/modelTextView"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_weight=".9"
-                    android:background="@drawable/search_bg"
-                    android:drawableStart="@drawable/search"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:hint="Vehicle Reg. Number or VIN"
-                    android:paddingStart="10dp"
+                    android:background="@drawable/grey_border_rectangle"
+                    android:drawableEnd="@drawable/path"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:gravity="center|start"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="Model"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <LinearLayout
-                    android:id="@+id/crossLayout"
-                    android:layout_width="0dp"
+                    android:id="@+id/searchLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:gravity="center"
-                    android:layout_weight=".1"
-                    android:layout_marginEnd="4dp">
+                    android:background="@drawable/search_bg"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="1">
 
-                    <ImageView
-                        android:id="@+id/ivCamera"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/cross_with_bg" />
+
+                    <EditText
+                        android:id="@+id/searchByVINEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight=".9"
+                        android:background="@drawable/search_bg"
+                        android:drawableStart="@drawable/search"
+                        android:drawablePadding="10dp"
+                        android:ems="10"
+                        android:hint="Vehicle Reg. Number or VIN"
+                        android:paddingStart="10dp"
+                        android:textSize="12sp"
+                        android:visibility="visible" />
+
+                    <LinearLayout
+                        android:id="@+id/crossLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight=".1"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/ivCamera"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/cross_with_bg" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
+            </RelativeLayout>
 
-
-            </LinearLayout>
             <androidx.cardview.widget.CardView
-                android:id="@+id/searchByVinCard"
+                android:id="@+id/vehiclesListCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="2dp"
-                app:layout_constraintEnd_toEndOf="@id/searchLayout"
-                app:layout_constraintStart_toStartOf="@id/searchLayout"
-                app:layout_constraintTop_toBottomOf="@id/searchLayout">
+                app:layout_constraintEnd_toEndOf="@id/searchOrDropdownLayout"
+                app:layout_constraintStart_toStartOf="@id/searchOrDropdownLayout"
+                app:layout_constraintTop_toBottomOf="@id/searchOrDropdownLayout">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/searchByVinRecyclerView"
+                    android:id="@+id/vehiclesListRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
@@ -140,14 +164,13 @@
 
             </androidx.cardview.widget.CardView>
 
-            <EditText
-                android:id="@+id/DurationEditText"
+            <TextView
+                android:id="@+id/durationTextView"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/grey_border_rectangle"
                 android:drawableEnd="@drawable/path"
-                android:ems="10"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="center|start"
                 android:hint="Duration: Last Month"
@@ -157,7 +180,28 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@+id/searchLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/searchOrDropdownLayout" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/durationListCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="@id/durationTextView"
+                app:layout_constraintStart_toStartOf="@id/durationTextView"
+                app:layout_constraintTop_toBottomOf="@id/durationTextView">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/durationListRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="0dp"
@@ -180,7 +224,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
-                app:layout_constraintTop_toBottomOf="@id/DurationEditText">
+                app:layout_constraintTop_toBottomOf="@id/durationTextView">
 
                 <LinearLayout
                     android:id="@+id/detailViewBg"

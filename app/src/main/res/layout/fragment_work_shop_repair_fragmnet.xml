@@ -55,7 +55,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/SearchByVINEditText"
+                android:id="@+id/searchByVINEditText"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
@@ -73,7 +73,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/selectTypeTextView" />
 
             <EditText
-                android:id="@+id/DurationEditText"
+                android:id="@+id/durationTextView"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
@@ -89,7 +89,7 @@
                 android:fontFamily="@font/montserrat_semi_bold"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
                 app:layout_constraintStart_toStartOf="@id/start_guideline"
-                app:layout_constraintTop_toBottomOf="@+id/SearchByVINEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/searchByVINEditText" />
 
             <TextView
                 android:layout_width="0dp"
@@ -112,7 +112,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="@id/end_guideline"
-                app:layout_constraintTop_toBottomOf="@id/DurationEditText">
+                app:layout_constraintTop_toBottomOf="@id/durationTextView">
 
                 <LinearLayout
                     android:id="@+id/detailViewBg"
