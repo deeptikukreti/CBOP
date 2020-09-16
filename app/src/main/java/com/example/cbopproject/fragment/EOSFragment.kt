@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.example.cbopproject.activity.MainActivity
 import com.example.cbopproject.R
+import com.example.cbopproject.activity.SelectDateRange
 import com.example.cbopproject.adapter.SortByAdapter
 import com.example.cbopproject.adapter.DetailViewAdapter
 import com.example.cbopproject.adapter.DurationAdapter
@@ -67,7 +68,12 @@ class EOSFragment : Fragment(), View.OnClickListener {
     private fun setDurationData() {
         durationListRecyclerView.adapter=DurationAdapter(mainActivity!!,durationList,object :DurationAdapter.DurationInterface{
             override fun onPositionClicked(position: Int) {
-                durationTextView.text=durationList[position]
+
+                if(position==4){
+                    SelectDateRange.openSelectDateRangeDialog(mainActivity!!)
+                }else{
+                    durationTextView.text=durationList[position]
+                }
             }
 
         })
