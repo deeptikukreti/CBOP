@@ -12,9 +12,9 @@
        android:id="@+id/header"
        layout="@layout/header_layout"/>
 
-    <HorizontalScrollView
+    <LinearLayout
     android:id="@+id/horizontalScrollView"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     android:layout_marginTop="16dp"
@@ -27,7 +27,7 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,8 @@
 
         <RadioButton
             android:id="@+id/eosRadioBtn"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:background="@drawable/radio_button_start_selector"
@@ -56,10 +57,11 @@
 
         <RadioButton
             android:id="@+id/workShopRepairRadioBtn"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/radio_button_end_selector"
+            android:background="@drawable/radio_button_start_selector"
             android:button="@null"
             android:gravity="center"
             android:padding="10dp"
@@ -68,23 +70,24 @@
             android:textColor="@color/btn_text_color"
             android:textSize="12sp" />
 
-<!--        <View-->
-<!--            android:layout_width="1dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="#e2e2e2" />-->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#e2e2e2" />
 
-<!--        <RadioButton-->
-<!--            android:id="@+id/upTimeRadioBtn"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:background="@drawable/radio_button_center_selector"-->
-<!--            android:button="@null"-->
-<!--            android:gravity="center"-->
-<!--            android:padding="10dp"-->
-<!--            android:text="UpTime"-->
-<!--            android:textColor="@color/btn_text_color"-->
-<!--            android:textSize="12sp" />-->
+        <RadioButton
+            android:id="@+id/upTimeRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/radio_button_end_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="UpTime"
+            android:textColor="@color/btn_text_color"
+            android:textSize="12sp" />
 
 <!--        <View-->
 <!--            android:layout_width="1dp"-->
@@ -159,7 +162,7 @@
 <!--            android:textSize="12sp" />-->
     </RadioGroup>
 
-</HorizontalScrollView>
+</LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="0dp"

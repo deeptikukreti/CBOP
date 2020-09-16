@@ -6,27 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cbopproject.R
-import kotlinx.android.synthetic.main.dropdown_single_item_layout.view.*
 
-class FilterOrSearchAdapter(var context : Context,var searchList:Array<String> ,var clickedPosition: SearchFilterInterface) : RecyclerView.Adapter<FilterOrSearchAdapter.ViewHolder>() {
+class UptimeAdapter(var context : Context,var clickedPosition: ClickedPositionInterface) : RecyclerView.Adapter<UptimeAdapter.ViewHolder>() {
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.dropdown_single_item_layout, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.single_uptime_item_layout, parent, false)
         return ViewHolder(v)
     }
 
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(position).textView.text=searchList[position]
-     holder.itemView.setOnClickListener {
-         clickedPosition.onPositionClicked(position)
-     }
+
     }
 
     //this method is giving the size of the list
     override fun getItemCount(): Int {
-        return searchList.size
+        return 2
     }
 
     //the class is hodling the list view
@@ -36,7 +32,7 @@ class FilterOrSearchAdapter(var context : Context,var searchList:Array<String> ,
             return itemView
         }
     }
-     interface SearchFilterInterface{
+     interface ClickedPositionInterface{
          fun onPositionClicked(position:Int)
      }
 

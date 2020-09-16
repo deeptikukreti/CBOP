@@ -1,5 +1,34 @@
 <resources>
     <string name="app_name">CBOP Project</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+<!--   <string name="">EOS</string>-->
+<!--   <string name="">WorkShop Repair</string>-->
+<!--   <string name="">UpTime</string>-->
+
+<!--   <string name="">Breakdown tickets</string>-->
+<!--   <string name="">Avg. reach time"</string>-->
+<!--   <string name="">Avg. repair time</string>-->
+<!--   <string name="">VIEW OPEN TICKETS</string>-->
+<!--   <string name="">Hrs</string>-->
+<!--   <string name="">Duration: Last Month</string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
+<!--   <string name=""></string>-->
 </resources>

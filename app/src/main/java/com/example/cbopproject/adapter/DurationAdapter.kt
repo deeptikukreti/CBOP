@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cbopproject.R
-import kotlinx.android.synthetic.main.dropdown_single_item_layout.view.*
+import kotlinx.android.synthetic.main.single_dropdown_item_layout.view.*
 
 class DurationAdapter(var context : Context, var durationList:Array<String>, var clickedPosition: DurationInterface) : RecyclerView.Adapter<DurationAdapter.ViewHolder>() {
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.dropdown_single_item_layout, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.single_dropdown_item_layout, parent, false)
         return ViewHolder(v)
     }
 

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cbopproject.R
 import kotlinx.android.synthetic.main.single_dropdown_item_layout.view.*
 
-class ModelsOrVehiclesAdapter(var context : Context, var searchList:Array<String>, var clickedPosition: SearchFilterInterface) : RecyclerView.Adapter<ModelsOrVehiclesAdapter.ViewHolder>() {
+class SortByAdapter(var context : Context, var searchList:Array<String>, var clickedPosition: SearchFilterInterface) : RecyclerView.Adapter<SortByAdapter.ViewHolder>() {
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

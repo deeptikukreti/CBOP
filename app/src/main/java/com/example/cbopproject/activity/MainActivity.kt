@@ -6,7 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.cbopproject.R
 import com.example.cbopproject.fragment.EOSFragment
-import com.example.cbopproject.fragment.WorkShopRepairFragmnet
+import com.example.cbopproject.fragment.UptimeFragment
+import com.example.cbopproject.fragment.WorkShopRepairFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
@@ -27,7 +28,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                     loadFragment(EOSFragment())
                 }
                 R.id.workShopRepairRadioBtn ->{
-                    loadFragment(WorkShopRepairFragmnet())
+                    loadFragment(WorkShopRepairFragment())
+                }
+                R.id.upTimeRadioBtn ->{
+                    loadFragment(UptimeFragment())
                 }
             }
         }
@@ -35,12 +39,12 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
     override fun onClick(v: View?) {
        when(v?.id){
-           R.id.eosRadioBtn ->{
-               loadFragment(EOSFragment())
-           }
-           R.id.workShopRepairRadioBtn ->{
-               loadFragment(WorkShopRepairFragmnet())
-           }
+//           R.id.eosRadioBtn ->{
+//               loadFragment(EOSFragment())
+//           }
+//           R.id.workShopRepairRadioBtn ->{
+//               loadFragment(WorkShopRepairFragmnet())
+//           }
        }
     }
 

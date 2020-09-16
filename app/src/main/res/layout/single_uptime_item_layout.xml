@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-   android:layout_marginBottom="20dp"
+    android:layout_marginBottom="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -56,7 +56,7 @@
         android:id="@+id/dateOfSaleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EOS tickets: "
+        android:text="Date of sale: "
         android:textColor="@color/light_grey"
         android:textSize="12sp"
         android:fontFamily="@font/montserrat_regular"
@@ -65,12 +65,13 @@
         app:layout_constraintTop_toBottomOf="@id/constraintLayout"
         app:layout_constraintStart_toStartOf="@id/constraintLayout"/>
     <TextView
+        android:id="@+id/dateOfSaleValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:fontFamily="@font/montserrat_semi_bold"
-        android:text="2"
+        android:text="12 june 2020"
         app:layout_constraintTop_toTopOf="@id/dateOfSaleTextView"
         app:layout_constraintBottom_toBottomOf="@id/dateOfSaleTextView"
         app:layout_constraintStart_toEndOf="@id/dateOfSaleTextView"/>
@@ -79,7 +80,7 @@
         android:id="@+id/avgRunningTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Avg reach time: "
+        android:text="Avg. Running: "
         android:textColor="@color/light_grey"
         android:textSize="12sp"
         android:fontFamily="@font/montserrat_regular"
@@ -87,51 +88,16 @@
         app:layout_constraintTop_toBottomOf="@id/dateOfSaleTextView"
         app:layout_constraintStart_toStartOf="@id/dateOfSaleTextView"/>
     <TextView
+        android:id="@+id/averageRunningValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:fontFamily="@font/montserrat_semi_bold"
-        android:text="2 hrs"
+        android:text="2000 kms"
         app:layout_constraintTop_toTopOf="@id/avgRunningTextView"
         app:layout_constraintBottom_toBottomOf="@id/avgRunningTextView"
         app:layout_constraintStart_toEndOf="@id/avgRunningTextView"/>
-    <TextView
-        android:id="@+id/avgRepairTimeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Avg. repair time: "
-        android:textColor="@color/light_grey"
-        android:textSize="12sp"
-        android:fontFamily="@font/montserrat_regular"
-        app:layout_constraintTop_toTopOf="@id/avgRepairTimeValue"
-        app:layout_constraintBottom_toBottomOf="@id/avgRepairTimeValue"
-        app:layout_constraintEnd_toStartOf="@id/avgRepairTimeValue"/>
-    <TextView
-        android:id="@+id/avgRepairTimeValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:text="2 hrs"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="@id/constraintLayout"/>
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/serviceHistoryTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="SERVICE HISTORY"
-        android:textSize="12sp"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:gravity="center"
-        android:textColor="@color/colorAccent"
-        android:drawablePadding="10dp"
-        android:drawableEnd="@drawable/next"
-        app:layout_constraintTop_toBottomOf="@id/avgRepairTimeValue"
-        app:layout_constraintEnd_toEndOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

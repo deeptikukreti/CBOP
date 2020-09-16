@@ -11,14 +11,15 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.example.cbopproject.activity.MainActivity
 import com.example.cbopproject.R
-import com.example.cbopproject.adapter.SortByAdapter
 import com.example.cbopproject.adapter.DetailViewAdapter
 import com.example.cbopproject.adapter.DurationAdapter
 import com.example.cbopproject.adapter.ModelsOrVehiclesAdapter
-import kotlinx.android.synthetic.main.fragment_e_o_s.*
+import com.example.cbopproject.adapter.SortByAdapter
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.*
 
-class EOSFragment : Fragment(), View.OnClickListener {
-    private var mainActivity: MainActivity? = null
+
+class WorkShopRepairFragment : Fragment(),View.OnClickListener  {
+    var mainActivity: MainActivity? =null
     private var sortBYList: Array<String> = arrayOf("All Vehicles", "Model", "Individual Vehicle")
     private var durationList: Array<String> = arrayOf("All", "Last month", "Last 2 month","Specific month","Date Range")
     private var vehicleOrModelList: Array<String> =
@@ -33,9 +34,8 @@ class EOSFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_e_o_s, container, false)
+        return inflater.inflate(R.layout.fragment_work_shop_repair_fragment, container, false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewInitialization()
@@ -49,23 +49,24 @@ class EOSFragment : Fragment(), View.OnClickListener {
         durationTextView.setOnClickListener(this)
         crossLayout.setOnClickListener(this)
         filterByTextView.text = "All Vehichles"
-        detailViewRecyclerView.adapter =
+        detailViewRecyclerView.adapter=
             DetailViewAdapter(
                 mainActivity!!,
-                false,
-                object : DetailViewAdapter.ClickedPositionInterface {
+                true,
+                object :
+                    DetailViewAdapter.ClickedPositionInterface {
                     override fun onPositionClicked(position: Int) {
-                    }
-                })
 
+                    }
+
+                })
         setSortByListAdapter()
         setModelOrVehiclesList()
         setDurationData()
-
     }
-
     private fun setDurationData() {
-        durationListRecyclerView.adapter=DurationAdapter(mainActivity!!,durationList,object :DurationAdapter.DurationInterface{
+        durationListRecyclerView.adapter=
+            DurationAdapter(mainActivity!!,durationList,object : DurationAdapter.DurationInterface{
             override fun onPositionClicked(position: Int) {
                 durationTextView.text=durationList[position]
             }
@@ -86,17 +87,15 @@ class EOSFragment : Fragment(), View.OnClickListener {
                             isSeachByVin = 0
                             searchByVINEditText.setText("")
                             searchLayout.visibility = View.GONE
-                            vehiclesListCard.visibility=View.GONE
                             modelTextView.visibility = View.VISIBLE
                         } else {
                             isSeachByVin = 1
                             modelTextView.setText("")
                             modelTextView.visibility = View.GONE
-                            vehiclesListCard.visibility=View.GONE
                             searchLayout.visibility = View.VISIBLE
                         }
                     } else {
-                       resetData()
+                        resetData()
                     }
                 }
 
@@ -145,11 +144,10 @@ class EOSFragment : Fragment(), View.OnClickListener {
         modelTextView.visibility = View.GONE
         vehiclesListCard.visibility=View.GONE
     }
-
     override fun onClick(v: View?) {
-        when (v?.id) {
+        when(v?.id){
             R.id.filterByTextView -> {
-                //resetData()
+                resetData()
                 vehiclesListCard.visibility=View.GONE
                 if (isFilterByListOpen) {
                     isFilterByListOpen = false
@@ -218,45 +216,32 @@ class EOSFragment : Fragment(), View.OnClickListener {
                 vehiclesListCard.visibility = View.GONE
                 crossLayout.visibility = View.GONE
             }
-            R.id.overviewLayout -> {
+            R.id.overviewLayout ->{
                 changeOverviewDetailViewBackground(
                     R.color.dark_blue,
                     R.color.light_grey
                 )
-                detailViewSummaryLayout.visibility = View.GONE
-                overviewSummaryLayout.visibility = View.VISIBLE
+                detailViewSummaryLayout.visibility=View.GONE
+                overviewSummaryLayout.visibility=View.VISIBLE
             }
-            R.id.detailViewLayout -> {
+            R.id.detailViewLayout ->{
                 changeOverviewDetailViewBackground(
                     R.color.light_grey,
                     R.color.dark_blue
                 )
-                overviewSummaryLayout.visibility = View.GONE
-                detailViewSummaryLayout.visibility = View.VISIBLE
+                overviewSummaryLayout.visibility=View.GONE
+                detailViewSummaryLayout.visibility=View.VISIBLE
             }
         }
     }
-
-    private fun changeOverviewDetailViewBackground(overviewColor: Int, detailViewColor: Int) {
-        overviewBg.backgroundTintList =
-            ContextCompat.getColorStateList(mainActivity!!, overviewColor);
-        overViewTextView.setTextColor(
-            ContextCompat.getColorStateList(
-                mainActivity!!,
-                overviewColor
-            )
-        )
-        detailViewBg.backgroundTintList =
-            ContextCompat.getColorStateList(mainActivity!!, detailViewColor);
-        detailViewTextView.setTextColor(
-            ContextCompat.getColorStateList(
-                mainActivity!!,
-                detailViewColor
-            )
-        )
+    private fun changeOverviewDetailViewBackground(overviewColor:Int,detailViewColor:Int){
+        overviewBg.backgroundTintList = ContextCompat.getColorStateList(mainActivity!!, overviewColor);
+        overViewTextView.setTextColor(ContextCompat.getColorStateList(mainActivity!!, overviewColor))
+        detailViewBg.backgroundTintList = ContextCompat.getColorStateList(mainActivity!!, detailViewColor);
+        detailViewTextView.setTextColor( ContextCompat.getColorStateList(mainActivity!!, detailViewColor))
     }
 
-    override fun onAttach(activity: Activity) {
+    override fun onAttach(activity : Activity) {
         super.onAttach(activity)
         if (activity is MainActivity) {
             mainActivity = activity
