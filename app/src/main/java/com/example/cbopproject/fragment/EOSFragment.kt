@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.example.cbopproject.activity.MainActivity
 import com.example.cbopproject.R
+import com.example.cbopproject.`interface`.DateRangeInterface
 import com.example.cbopproject.activity.SelectDateRange
 import com.example.cbopproject.adapter.SortByAdapter
 import com.example.cbopproject.adapter.DetailViewAdapter
@@ -18,7 +19,7 @@ import com.example.cbopproject.adapter.DurationAdapter
 import com.example.cbopproject.adapter.ModelsOrVehiclesAdapter
 import kotlinx.android.synthetic.main.fragment_e_o_s.*
 
-class EOSFragment : Fragment(), View.OnClickListener {
+class EOSFragment : Fragment(), View.OnClickListener,DateRangeInterface {
     private var mainActivity: MainActivity? = null
     private var sortBYList: Array<String> = arrayOf("All Vehicles", "Model", "Individual Vehicle")
     private var durationList: Array<String> = arrayOf("All", "Last month", "Last 2 month","Specific month","Date Range")
@@ -29,6 +30,8 @@ class EOSFragment : Fragment(), View.OnClickListener {
     private var isModelListOpen = false
     private var isDurationListOpen = false
     private var modelsOrVehiclesAdapter: ModelsOrVehiclesAdapter? = null
+    private var selectedMonths:ArrayList<String> = ArrayList()
+    private lateinit var dateRangeInterface:DateRangeInterface
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +42,7 @@ class EOSFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dateRangeInterface=this
         viewInitialization()
     }
 
@@ -70,7 +74,7 @@ class EOSFragment : Fragment(), View.OnClickListener {
             override fun onPositionClicked(position: Int) {
 
                 if(position==4){
-                    SelectDateRange.openSelectDateRangeDialog(mainActivity!!)
+                    SelectDateRange.openSelectDateRangeDialog(mainActivity!!,dateRangeInterface)
                 }else{
                     durationTextView.text=durationList[position]
                 }
@@ -266,6 +270,14 @@ class EOSFragment : Fragment(), View.OnClickListener {
         super.onAttach(activity)
         if (activity is MainActivity) {
             mainActivity = activity
+        }
+    }
+
+    override fun selectedMonths(month: String,isAdd:Boolean) {
+        if(isAdd) {
+            selectedMonths.add(month)
+        }else{
+            selectedMonths.remove(month)
         }
     }
 }

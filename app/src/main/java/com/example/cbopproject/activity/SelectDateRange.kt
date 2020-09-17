@@ -5,15 +5,17 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
-import android.view.ViewGroup
 import android.view.Window
 import com.example.cbopproject.R
+import com.example.cbopproject.`interface`.DateRangeInterface
 import com.example.cbopproject.adapter.MonthsAdapter
 import kotlinx.android.synthetic.main.date_range_layout.*
 
 class SelectDateRange{
   companion object{
-      fun openSelectDateRangeDialog(activity: Activity?){
+      fun openSelectDateRangeDialog(activity: Activity?,
+          dateRangeInterface: DateRangeInterface
+      ){
           var dialog:Dialog= Dialog(activity!!)
           dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
           dialog?.setContentView(R.layout.date_range_layout)
