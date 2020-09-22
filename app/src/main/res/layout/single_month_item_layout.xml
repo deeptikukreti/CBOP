@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:layout_margin="5dp"
+    android:id="@+id/monthLayout"
     android:background="@drawable/unselected_month_bg">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/monthNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Jan"

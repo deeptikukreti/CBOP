@@ -56,21 +56,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
                 <ImageButton
+                    android:id="@+id/ivPreviousYear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/previous"
                     android:padding="20dp"
                     android:background="@color/colorPrimary"/>
                 <TextView
+                    android:id="@+id/yearTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2020"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginEnd="60dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:textColor="@color/dark_blue"
                     android:textSize="14sp"
                     android:fontFamily="@font/montserrat_bold"/>
                 <ImageButton
+                    android:id="@+id/ivNextYear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/next"
