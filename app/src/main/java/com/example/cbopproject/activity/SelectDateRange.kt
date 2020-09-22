@@ -28,7 +28,8 @@ class SelectDateRange {
         var currentMonth: Int = 0
         fun openSelectDateRangeDialog(
             activity: Activity?,
-            dateRangeInterface: DateRangeInterface
+            dateRangeInterface: DateRangeInterface,
+            isDateRange: Boolean
         ) {
             var dialog: Dialog = Dialog(activity!!)
             dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -43,8 +44,10 @@ class SelectDateRange {
             addMonths()
             dialog.yearTextView.text = selectedCurrentYear.toString()
             dialog.ivNextYear.visibility = View.INVISIBLE
+            dialog.selectRangeButton.isEnabled = false
+            dialog.selectRangeButton.alpha = 0.5f
             //  var monthLisR.array.months_array
-            setMonthsAdapter(dialog.monthsListRecyclerView, activity!!)
+            setMonthsAdapter(dialog, dialog.monthsListRecyclerView, isDateRange, activity!!)
             dialog.closeDialogButton.setOnClickListener {
                 clearData()
                 dialog.dismiss()
@@ -54,7 +57,7 @@ class SelectDateRange {
                 dialog.yearTextView.text = selectedCurrentYear.toString()
                 dialog.ivNextYear.visibility = View.VISIBLE
                 monthsAdapter.notifyDataSetChanged()
-                setMonthsAdapter(dialog.monthsListRecyclerView, activity!!)
+                setMonthsAdapter(dialog, dialog.monthsListRecyclerView, isDateRange, activity!!)
             }
             dialog.ivNextYear.setOnClickListener {
                 selectedCurrentYear += 1
@@ -62,12 +65,21 @@ class SelectDateRange {
                 if (selectedCurrentYear == currentYear)
                     dialog.ivNextYear.visibility = View.INVISIBLE
                 monthsAdapter.notifyDataSetChanged()
-                setMonthsAdapter(dialog.monthsListRecyclerView, activity!!)
+                setMonthsAdapter(dialog, dialog.monthsListRecyclerView, isDateRange, activity!!)
             }
             dialog.selectRangeButton.setOnClickListener {
-                dateRangeInterface.selectedMonths(selectedMonthsWithYear)
-                clearData()
-                dialog.dismiss()
+                if (isDateRange ) {
+                    if(selectedMonthsList.size >= 2) {
+                        dateRangeInterface.selectedMonths(selectedMonthsWithYear, true)
+                        clearData()
+                        dialog.dismiss()
+                    }
+                } else {
+                    dateRangeInterface.selectedMonths(selectedMonthsWithYear, false)
+                    clearData()
+                    dialog.dismiss()
+                }
+
             }
             dialog?.show()
         }
@@ -78,24 +90,36 @@ class SelectDateRange {
             selectedMonthsWithYear.clear()
         }
 
-        private fun setMonthsAdapter(monthsListRecyclerView: RecyclerView?, activity: Activity?) {
+        private fun setMonthsAdapter(
+            dialog: Dialog,
+            monthsListRecyclerView: RecyclerView?,
+            isDateRange: Boolean,
+            activity: Activity?
+        ) {
             monthList.clear()
             addMonths()
-            for(i in selectedMonthsList.indices){
-                if(selectedMonthsList[i].year== selectedCurrentYear){
+            for (i in selectedMonthsList.indices) {
+                if (selectedMonthsList[i].year == selectedCurrentYear) {
                     monthList.removeAt(selectedMonthsList[i].position)
-                    monthList.add(selectedMonthsList[i].position,selectedMonthsList[i])
+                    monthList.add(selectedMonthsList[i].position, selectedMonthsList[i])
                 }
             }
-            monthsAdapter = MonthsAdapter(activity!!, monthList, object :
+            monthsAdapter = MonthsAdapter(activity!!, monthList, isDateRange, object :
                 MonthsAdapter.SelectedMonthInterface {
                 override fun onPositionClicked(position: Int, isSelected: Boolean) {
                     if (isSelected) {
                         selectedMonthsList.remove(monthList[position])
-                        selectedMonthsWithYear.remove("01-${monthList[position].position+1}-$selectedCurrentYear")
+                        selectedMonthsWithYear.remove("01-${monthList[position].position + 1}-$selectedCurrentYear")
                     } else {
                         selectedMonthsList.add(monthList[position])
-                        selectedMonthsWithYear.add("01-${monthList[position].position+1}-$selectedCurrentYear")
+                        selectedMonthsWithYear.add("01-${monthList[position].position + 1}-$selectedCurrentYear")
+                    }
+                    if (selectedMonthsList.size > 0) {
+                        dialog.selectRangeButton.isEnabled = true
+                        dialog.selectRangeButton.alpha = 1f
+                    } else {
+                        dialog.selectRangeButton.isEnabled = false
+                        dialog.selectRangeButton.alpha = 0.5f
                     }
                     monthsAdapter.notifyDataSetChanged()
                 }
@@ -106,18 +130,18 @@ class SelectDateRange {
         }
 
         fun addMonths() {
-            monthList.add(MonthBean("Jan", selectedCurrentYear, 0,false))
-            monthList.add(MonthBean("Feb", selectedCurrentYear, 1,false))
-            monthList.add(MonthBean("Mar", selectedCurrentYear, 2,false))
-            monthList.add(MonthBean("Apr", selectedCurrentYear, 3,false))
-            monthList.add(MonthBean("May", selectedCurrentYear, 4,false))
-            monthList.add(MonthBean("June",selectedCurrentYear, 5,false))
-            monthList.add(MonthBean("July",selectedCurrentYear, 6,false))
-            monthList.add(MonthBean("Aug", selectedCurrentYear, 7,false))
-            monthList.add(MonthBean("Sep", selectedCurrentYear, 8,false))
-            monthList.add(MonthBean("Oct", selectedCurrentYear, 9,false))
-            monthList.add(MonthBean("Nov", selectedCurrentYear, 10,false))
-            monthList.add(MonthBean("Dec", selectedCurrentYear, 11,false))
+            monthList.add(MonthBean("Jan", selectedCurrentYear, 0, false))
+            monthList.add(MonthBean("Feb", selectedCurrentYear, 1, false))
+            monthList.add(MonthBean("Mar", selectedCurrentYear, 2, false))
+            monthList.add(MonthBean("Apr", selectedCurrentYear, 3, false))
+            monthList.add(MonthBean("May", selectedCurrentYear, 4, false))
+            monthList.add(MonthBean("June", selectedCurrentYear, 5, false))
+            monthList.add(MonthBean("July", selectedCurrentYear, 6, false))
+            monthList.add(MonthBean("Aug", selectedCurrentYear, 7, false))
+            monthList.add(MonthBean("Sep", selectedCurrentYear, 8, false))
+            monthList.add(MonthBean("Oct", selectedCurrentYear, 9, false))
+            monthList.add(MonthBean("Nov", selectedCurrentYear, 10, false))
+            monthList.add(MonthBean("Dec", selectedCurrentYear, 11, false))
 
         }
     }

@@ -20,4 +20,20 @@
         <item>Model</item>
         <item>Individual Vehicle</item>
     </string-array>
+    <string-array name="duration_list">
+        <item>All</item>
+        <item>Last month</item>
+        <item>Last 2 month</item>
+        <item>Specific month</item>
+        <item>Date Range</item>
+    </string-array>
+    <string-array name="vehicle_or_model_list">
+        <item>MH 20 GP 2023</item>
+        <item>MH 20 GP 2024</item>
+        <item>MH 20 GP 2025</item>
+        <item>MH 20 GP 2026</item>
+        <item>MH 20 GP 2027</item>
+        <item>MH 20 GP 2028</item>
+        <item>MH 20 GP 2029</item>
+    </string-array>
 </resources>

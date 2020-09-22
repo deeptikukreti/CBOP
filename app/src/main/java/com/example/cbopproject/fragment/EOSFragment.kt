@@ -30,11 +30,9 @@ import kotlin.collections.ArrayList
 
 class EOSFragment : Fragment(), View.OnClickListener, DateRangeInterface {
     private var mainActivity: MainActivity? = null
-    private var sortBYList: Array<String> = arrayOf("All Vehicles", "Model", "Individual Vehicle")
-    private var durationList: Array<String> =
-        arrayOf("All", "Last month", "Last 2 month", "Specific month", "Date Range")
-    private var vehicleOrModelList: Array<String> =
-        arrayOf("MH 20 GP 2029", "MH 20 GP 2028", "MH 20 GP 2027", "MH 20 GP 2026", "MH 20 GP 2025")
+    private var sortBYList: Array<String> = resources.getStringArray(R.array.sort_by_array)
+    private var durationList: Array<String> = resources.getStringArray(R.array.duration_list)
+    private var vehicleOrModelList: Array<String> =resources.getStringArray(R.array.vehicle_or_model_list)
     private var isFilterByListOpen = false
     private var isSeachByVin = 0
     private var isModelListOpen = false
@@ -84,24 +82,30 @@ class EOSFragment : Fragment(), View.OnClickListener, DateRangeInterface {
             durationList,
             object : DurationAdapter.DurationInterface {
                 override fun onPositionClicked(position: Int) {
-
-                    if (position == 4) {
-                        SelectDateRange.openSelectDateRangeDialog(
+                    when(position){
+                        0->{durationTextView.text = durationList[position]}
+                        1->{ var lastMonth = Calendar.getInstance().get(Calendar.MONTH)
+                            durationTextView.text = durationList[position] + "(${getMonth(lastMonth)})"}
+                        2->{
+                            var lastMonth = Calendar.getInstance().get(Calendar.MONTH)
+                            var lastToLastMonth = Calendar.getInstance().get(Calendar.MONTH) - 1
+                            durationTextView.text =
+                                durationList[position] + "(${getMonth(lastToLastMonth)}-${getMonth(
+                                    lastMonth
+                                )})"
+                        }
+                        3->{ SelectDateRange.openSelectDateRangeDialog(
                             mainActivity!!,
-                            dateRangeInterface
-                        )
-                    } else if (position == 1) {
-                        var lastMonth = Calendar.getInstance().get(Calendar.MONTH)
-                        durationTextView.text = durationList[position] + "(${getMonth(lastMonth)})"
-                    } else if (position == 2) {
-                        var lastMonth = Calendar.getInstance().get(Calendar.MONTH)
-                        var lastToLastMonth = Calendar.getInstance().get(Calendar.MONTH) - 1
-                        durationTextView.text =
-                            durationList[position] + "(${getMonth(lastToLastMonth)}-${getMonth(
-                                lastMonth
-                            )})"
-                    } else {
-                        durationTextView.text = durationList[position]
+                            dateRangeInterface,
+                            false
+                        )}
+                        4->{
+                            SelectDateRange.openSelectDateRangeDialog(
+                                mainActivity!!,
+                                dateRangeInterface,
+                                true
+                            )
+                        }
                     }
                 }
 
@@ -302,32 +306,38 @@ class EOSFragment : Fragment(), View.OnClickListener, DateRangeInterface {
     var dateList: ArrayList<Date> = ArrayList()
     lateinit var minDate: Date
     lateinit var maxDate: Date
-    override fun selectedMonths(selectedMonthsWithYear: ArrayList<String>) {
+    override fun selectedMonths(selectedMonthsWithYear: ArrayList<String>,isDateRange:Boolean) {
         dateList.clear()
         var dateFormat = SimpleDateFormat("dd-MM-yyyy")
-        for (i in selectedMonthsWithYear.indices) {
-            dateList.add(dateFormat.parse(selectedMonthsWithYear[i]))
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            maxDate = dateList.stream()
-                .max(Date::compareTo)
-                .get()
-            //Log.d("SelectedDateRange","maxDate=${maxDate}")
-            Log.d("SelectedDateRange", "maxDate=${CommonMethod.convertDateFormat(maxDate)}")
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            minDate = dateList.stream()
-                .min(Date::compareTo)
-                .get()
-            Log.d("SelectedDateRange", "minDate=${CommonMethod.convertDateFormat(minDate)}")
+        if (isDateRange) {
+            for (i in selectedMonthsWithYear.indices) {
+                dateList.add(dateFormat.parse(selectedMonthsWithYear[i]))
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                maxDate = dateList.stream()
+                    .max(Date::compareTo)
+                    .get()
+                //Log.d("SelectedDateRange","maxDate=${maxDate}")
+                Log.d("SelectedDateRange", "maxDate=${CommonMethod.convertDateFormat(maxDate)}")
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                minDate = dateList.stream()
+                    .min(Date::compareTo)
+                    .get()
+                Log.d("SelectedDateRange", "minDate=${CommonMethod.convertDateFormat(minDate)}")
 
-            //E MMM dd hh:mm:ss GMT+05:30 yyyy
+                //E MMM dd hh:mm:ss GMT+05:30 yyyy
+            }
+            Log.d("SelectedDateRange", "gap=${CommonMethod.checkMonthGap(minDate, maxDate)}")
+            durationTextView.text =
+                "${CommonMethod.convertDateFormat(minDate)} - ${CommonMethod.convertDateFormat(
+                    maxDate
+                )}(${CommonMethod.checkMonthGap(
+                    minDate,
+                    maxDate
+                ) + 1} months)"
+        }else{
+            durationTextView.text ="${CommonMethod.convertDateFormat(dateFormat.parse(selectedMonthsWithYear[0]))}"
         }
-        Log.d("SelectedDateRange", "gap=${CommonMethod.checkMonthGap(minDate, maxDate)}")
-        durationTextView.text =
-            "${CommonMethod.convertDateFormat(minDate)} - ${CommonMethod.convertDateFormat(maxDate)}(${CommonMethod.checkMonthGap(
-                minDate,
-                maxDate
-            ) + 1} months)"
     }
 }

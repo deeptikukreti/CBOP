@@ -1,9 +1,11 @@
 package com.example.cbopproject.fragment
 
 import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,24 +13,52 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.example.cbopproject.activity.MainActivity
 import com.example.cbopproject.R
+import com.example.cbopproject.`interface`.DateRangeInterface
+import com.example.cbopproject.activity.SelectDateRange
 import com.example.cbopproject.adapter.DetailViewAdapter
 import com.example.cbopproject.adapter.DurationAdapter
 import com.example.cbopproject.adapter.ModelsOrVehiclesAdapter
 import com.example.cbopproject.adapter.SortByAdapter
+import com.example.cbopproject.utils.CommonMethod
+import kotlinx.android.synthetic.main.fragment_e_o_s.*
 import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.*
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.crossLayout
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.detailViewBg
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.detailViewLayout
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.detailViewRecyclerView
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.detailViewSummaryLayout
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.detailViewTextView
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.durationListCard
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.durationListRecyclerView
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.durationTextView
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.filterByTextView
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.modelTextView
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.overViewTextView
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.overviewBg
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.overviewLayout
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.overviewSummaryLayout
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.searchByVINEditText
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.searchLayout
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.searchOrDropdownLayout
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.sortByCard
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.sortRecyclerView
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.vehiclesListCard
+import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.vehiclesListRecyclerView
+import java.text.SimpleDateFormat
+import java.util.*
 
 
-class WorkShopRepairFragment : Fragment(),View.OnClickListener  {
+class WorkShopRepairFragment : Fragment(),View.OnClickListener, DateRangeInterface {
     var mainActivity: MainActivity? =null
-    private var sortBYList: Array<String> = arrayOf("All Vehicles", "Model", "Individual Vehicle")
-    private var durationList: Array<String> = arrayOf("All", "Last month", "Last 2 month","Specific month","Date Range")
-    private var vehicleOrModelList: Array<String> =
-        arrayOf("MH 20 GP 2029", "MH 20 GP 2028", "MH 20 GP 2027", "MH 20 GP 2026", "MH 20 GP 2025")
+    private var sortBYList: Array<String> = resources.getStringArray(R.array.sort_by_array)
+    private var durationList: Array<String> = resources.getStringArray(R.array.duration_list)
+    private var vehicleOrModelList: Array<String> =resources.getStringArray(R.array.vehicle_or_model_list)
     private var isFilterByListOpen = false
     private var isSeachByVin = 0
     private var isModelListOpen = false
     private var isDurationListOpen = false
     private var modelsOrVehiclesAdapter: ModelsOrVehiclesAdapter? = null
+    private lateinit var dateRangeInterface: DateRangeInterface
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,9 +68,9 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener  {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dateRangeInterface = this
         viewInitialization()
     }
-
     private fun viewInitialization() {
         overviewLayout.setOnClickListener(this)
         detailViewLayout.setOnClickListener(this)
@@ -65,15 +95,42 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener  {
         setDurationData()
     }
     private fun setDurationData() {
-        durationListRecyclerView.adapter=
-            DurationAdapter(mainActivity!!,durationList,object : DurationAdapter.DurationInterface{
-            override fun onPositionClicked(position: Int) {
-                durationTextView.text=durationList[position]
-            }
+        durationListRecyclerView.adapter = DurationAdapter(
+            mainActivity!!,
+            durationList,
+            object : DurationAdapter.DurationInterface {
+                override fun onPositionClicked(position: Int) {
+                    when(position){
+                        0->{durationTextView.text = durationList[position]}
+                        1->{ var lastMonth = Calendar.getInstance().get(Calendar.MONTH)
+                            durationTextView.text = durationList[position] + "(${CommonMethod.getMonth(
+                                lastMonth
+                            )})"}
+                        2->{
+                            var lastMonth = Calendar.getInstance().get(Calendar.MONTH)
+                            var lastToLastMonth = Calendar.getInstance().get(Calendar.MONTH) - 1
+                            durationTextView.text =
+                                durationList[position] + "(${CommonMethod.getMonth(lastToLastMonth)}-${CommonMethod.getMonth(
+                                    lastMonth
+                                )})"
+                        }
+                        3->{ SelectDateRange.openSelectDateRangeDialog(
+                            mainActivity!!,
+                            dateRangeInterface,
+                            false
+                        )}
+                        4->{
+                            SelectDateRange.openSelectDateRangeDialog(
+                                mainActivity!!,
+                                dateRangeInterface,
+                                true
+                            )
+                        }
+                    }
+                }
 
-        })
+            })
     }
-
     private fun setSortByListAdapter() {
         sortRecyclerView.adapter = SortByAdapter(
             mainActivity!!,
@@ -101,7 +158,6 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener  {
 
             })
     }
-
     private fun setModelOrVehiclesList() {
         modelsOrVehiclesAdapter = ModelsOrVehiclesAdapter(mainActivity!!, vehicleOrModelList,
             object : ModelsOrVehiclesAdapter.SearchFilterInterface {
@@ -240,7 +296,43 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener  {
         detailViewBg.backgroundTintList = ContextCompat.getColorStateList(mainActivity!!, detailViewColor);
         detailViewTextView.setTextColor( ContextCompat.getColorStateList(mainActivity!!, detailViewColor))
     }
+    var dateList: ArrayList<Date> = ArrayList()
+    lateinit var minDate: Date
+    lateinit var maxDate: Date
+    override fun selectedMonths(selectedMonthsWithYear: ArrayList<String>,isDateRange:Boolean) {
+        dateList.clear()
+        var dateFormat = SimpleDateFormat("dd-MM-yyyy")
+        if (isDateRange) {
+            for (i in selectedMonthsWithYear.indices) {
+                dateList.add(dateFormat.parse(selectedMonthsWithYear[i]))
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                maxDate = dateList.stream()
+                    .max(Date::compareTo)
+                    .get()
+                //Log.d("SelectedDateRange","maxDate=${maxDate}")
+                Log.d("SelectedDateRange", "maxDate=${CommonMethod.convertDateFormat(maxDate)}")
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                minDate = dateList.stream()
+                    .min(Date::compareTo)
+                    .get()
+                Log.d("SelectedDateRange", "minDate=${CommonMethod.convertDateFormat(minDate)}")
 
+                //E MMM dd hh:mm:ss GMT+05:30 yyyy
+            }
+            Log.d("SelectedDateRange", "gap=${CommonMethod.checkMonthGap(minDate, maxDate)}")
+            durationTextView.text =
+                "${CommonMethod.convertDateFormat(minDate)} - ${CommonMethod.convertDateFormat(
+                    maxDate
+                )}(${CommonMethod.checkMonthGap(
+                    minDate,
+                    maxDate
+                ) + 1} months)"
+        }else{
+            durationTextView.text ="${CommonMethod.convertDateFormat(dateFormat.parse(selectedMonthsWithYear[0]))}"
+        }
+    }
     override fun onAttach(activity : Activity) {
         super.onAttach(activity)
         if (activity is MainActivity) {

@@ -20,6 +20,7 @@ import kotlin.collections.ArrayList
 class MonthsAdapter(
     var context: Context,
     var monthsList: ArrayList<MonthBean>,
+    var isDateRange:Boolean,
     var selectedMonth: SelectedMonthInterface
 ) : RecyclerView.Adapter<MonthsAdapter.ViewHolder>() {
 
@@ -62,24 +63,37 @@ class MonthsAdapter(
             )
         }
         holder.itemView.setOnClickListener {
-
-            if (!monthsList[position].isSelected && SelectDateRange.selectedMonthsList.size < 6) {
-                if (SelectDateRange.selectedMonthsList.size > 0) {
-
-                    if (isValidateSelectedMonthIsUptoSixMonths("1-${monthsList[position].position + 1}-${monthsList[position].year}")) {
+            if(isDateRange) {
+                if (!monthsList[position].isSelected && SelectDateRange.selectedMonthsList.size < 6) {
+                    if (SelectDateRange.selectedMonthsList.size > 0) {
+                        if (isValidateSelectedMonthIsUptoSixMonths("1-${monthsList[position].position + 1}-${monthsList[position].year}")) {
+                            monthsList[position].isSelected = true
+                            selectedMonth.onPositionClicked(position, false)
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "You can select upto 6 months",
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                        }
+                    } else {
                         monthsList[position].isSelected = true
                         selectedMonth.onPositionClicked(position, false)
-                    } else {
-                        Toast.makeText(context, "You can select upto 6 months", Toast.LENGTH_LONG)
-                            .show()
                     }
                 } else {
+                    monthsList[position].isSelected = false
+                    selectedMonth.onPositionClicked(position, true)
+                }
+            }else{
+                if (!monthsList[position].isSelected && SelectDateRange.selectedMonthsList.size < 1){
                     monthsList[position].isSelected = true
                     selectedMonth.onPositionClicked(position, false)
                 }
-            } else {
-                monthsList[position].isSelected = false
-                selectedMonth.onPositionClicked(position, true)
+                else {
+                    monthsList[position].isSelected = false
+                    selectedMonth.onPositionClicked(position, true)
+                }
             }
             notifyDataSetChanged()
         }
