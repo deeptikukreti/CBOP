@@ -7,20 +7,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cbopproject.MonthBean
+import com.example.cbopproject.model.MonthBean
 import com.example.cbopproject.R
 import com.example.cbopproject.activity.SelectDateRange
-import com.example.cbopproject.utils.CommonMethod
+import com.example.cbopproject.utils.CalenderUtils
 import kotlinx.android.synthetic.main.single_month_item_layout.view.*
 import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 //var monthList:Array<String>,
 class MonthsAdapter(
     var context: Context,
     var monthsList: ArrayList<MonthBean>,
-    var isDateRange:Boolean,
+    var isDateRange: Boolean,
     var selectedMonth: SelectedMonthInterface
 ) : RecyclerView.Adapter<MonthsAdapter.ViewHolder>() {
 
@@ -63,7 +62,7 @@ class MonthsAdapter(
             )
         }
         holder.itemView.setOnClickListener {
-            if(isDateRange) {
+            if (isDateRange) {
                 if (!monthsList[position].isSelected && SelectDateRange.selectedMonthsList.size < 6) {
                     if (SelectDateRange.selectedMonthsList.size > 0) {
                         if (isValidateSelectedMonthIsUptoSixMonths("1-${monthsList[position].position + 1}-${monthsList[position].year}")) {
@@ -82,15 +81,20 @@ class MonthsAdapter(
                         selectedMonth.onPositionClicked(position, false)
                     }
                 } else {
-                    monthsList[position].isSelected = false
-                    selectedMonth.onPositionClicked(position, true)
+                    if (SelectDateRange.selectedMonthsList.size == 6 && !monthsList[position].isSelected) {
+                        Toast.makeText(context, "You can select upto 6 months", Toast.LENGTH_LONG)
+                            .show()
+                    } else {
+                        monthsList[position].isSelected = false
+                        selectedMonth.onPositionClicked(position, true)
+                    }
+
                 }
-            }else{
-                if (!monthsList[position].isSelected && SelectDateRange.selectedMonthsList.size < 1){
+            } else {
+                if (!monthsList[position].isSelected && SelectDateRange.selectedMonthsList.size < 1) {
                     monthsList[position].isSelected = true
                     selectedMonth.onPositionClicked(position, false)
-                }
-                else {
+                } else {
                     monthsList[position].isSelected = false
                     selectedMonth.onPositionClicked(position, true)
                 }
@@ -105,7 +109,7 @@ class MonthsAdapter(
         var isvalidate = true
         var dateFormat = SimpleDateFormat("dd-MM-yyyy")
         for (i in SelectDateRange.selectedMonthsWithYear.indices) {
-            var monthGap = CommonMethod.checkMonthGap(
+            var monthGap = CalenderUtils.checkMonthGap(
                 dateFormat.parse(SelectDateRange.selectedMonthsWithYear[i]),
                 dateFormat.parse(endDate)
             )
@@ -117,7 +121,6 @@ class MonthsAdapter(
 
         return isvalidate
     }
-
 
 
     //this method is giving the size of the list

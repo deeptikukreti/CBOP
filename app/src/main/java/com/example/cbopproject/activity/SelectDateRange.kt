@@ -4,15 +4,22 @@ import android.app.Activity
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cbopproject.MonthBean
 import com.example.cbopproject.R
 import com.example.cbopproject.`interface`.DateRangeInterface
 import com.example.cbopproject.adapter.MonthsAdapter
+import com.example.cbopproject.model.MonthBean
+import com.example.cbopproject.utils.CalenderUtils
 import kotlinx.android.synthetic.main.date_range_layout.*
+import java.text.DateFormat
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -68,8 +75,8 @@ class SelectDateRange {
                 setMonthsAdapter(dialog, dialog.monthsListRecyclerView, isDateRange, activity!!)
             }
             dialog.selectRangeButton.setOnClickListener {
-                if (isDateRange ) {
-                    if(selectedMonthsList.size >= 2) {
+                if (isDateRange) {
+                    if (selectedMonthsList.size >= 2) {
                         dateRangeInterface.selectedMonths(selectedMonthsWithYear, true)
                         clearData()
                         dialog.dismiss()
@@ -110,9 +117,11 @@ class SelectDateRange {
                     if (isSelected) {
                         selectedMonthsList.remove(monthList[position])
                         selectedMonthsWithYear.remove("01-${monthList[position].position + 1}-$selectedCurrentYear")
+
                     } else {
                         selectedMonthsList.add(monthList[position])
                         selectedMonthsWithYear.add("01-${monthList[position].position + 1}-$selectedCurrentYear")
+
                     }
                     if (selectedMonthsList.size > 0) {
                         dialog.selectRangeButton.isEnabled = true
@@ -121,7 +130,14 @@ class SelectDateRange {
                         dialog.selectRangeButton.isEnabled = false
                         dialog.selectRangeButton.alpha = 0.5f
                     }
-                    monthsAdapter.notifyDataSetChanged()
+                    if (selectedMonthsList.size > 1 && isDateRange) {
+                        getMinAndMaxDatesFromSelectedDates()
+                        setMonthsAdapter(dialog,monthsListRecyclerView,isDateRange,activity)
+                    }else{
+                        monthsAdapter.notifyDataSetChanged()
+                    }
+
+
                 }
 
             })
@@ -129,19 +145,181 @@ class SelectDateRange {
 
         }
 
+        var dateList: ArrayList<Date> = ArrayList()
+        lateinit var minDate: Date
+        lateinit var maxDate: Date
+        fun getMinAndMaxDatesFromSelectedDates() {
+            dateList.clear()
+            var dateFormat = SimpleDateFormat("dd-MM-yyyy")
+            for (i in selectedMonthsWithYear.indices) {
+                dateList.add(dateFormat.parse(selectedMonthsWithYear[i]))
+            }
+            maxDate = CalenderUtils.getMaxDate(dateList)
+
+            minDate = CalenderUtils.getMinDate(dateList)
+            var dateFormat2 = SimpleDateFormat("MMM-yyyy")
+            setDatesBetweenDateRange(dateFormat2.format(minDate), dateFormat2.format(maxDate))
+        }
+
+        fun setDatesBetweenDateRange(beignDate: String, endDate: String) {
+            val formater: DateFormat = SimpleDateFormat("MMM-yyyy")
+
+            val beginCalendar = Calendar.getInstance()
+            val finishCalendar = Calendar.getInstance()
+
+            try {
+                beginCalendar.time = formater.parse(beignDate)
+                finishCalendar.time = formater.parse(endDate)
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+            var loopCount = 0
+            while (beginCalendar.before(finishCalendar)) {
+                // add one month to date per loop
+                loopCount++
+                val date: String = formater.format(beginCalendar.time)
+                var splitDate = date.split("-")
+                beginCalendar.add(Calendar.MONTH, 1)
+                if (loopCount > 1) {
+                    Log.d("SelectedDateRange", date)
+                    Log.d("SelectedDateRange", splitDate.toString())
+                    Log.d(
+                        "SelectedDateRange",
+                        "${SimpleDateFormat("MM").format(beginCalendar.time).toInt()}"
+                    )
+                    Log.d(
+                        "SelectedDateRange",
+                        "${SimpleDateFormat("MM").format(beginCalendar.time).toInt() - 2}"
+                    )
+                    var selectMonthInNumber=0
+                    if((SimpleDateFormat("MM").format(beginCalendar.time).toInt() - 2)==-1){
+                        selectMonthInNumber=11
+                    }else{
+                        selectMonthInNumber=(SimpleDateFormat("MM").format(beginCalendar.time).toInt() - 2)
+                    }
+                    if (!selectedMonthsList.contains(
+                            MonthBean(
+                                splitDate[0],
+                                splitDate[1].toInt(),
+                                selectMonthInNumber,
+                                true
+                            )
+                        )
+                    ) {
+                        selectedMonthsList.add(
+                            MonthBean(
+                                splitDate[0],
+                                splitDate[1].toInt(),
+                               selectMonthInNumber,
+                                true
+                            )
+                        )
+                        selectedMonthsWithYear.add(
+                            "01-${selectMonthInNumber+1}-${splitDate[1].toInt()}"
+                        )
+                    }
+                }
+            }
+
+        }
+
         fun addMonths() {
-            monthList.add(MonthBean("Jan", selectedCurrentYear, 0, false))
-            monthList.add(MonthBean("Feb", selectedCurrentYear, 1, false))
-            monthList.add(MonthBean("Mar", selectedCurrentYear, 2, false))
-            monthList.add(MonthBean("Apr", selectedCurrentYear, 3, false))
-            monthList.add(MonthBean("May", selectedCurrentYear, 4, false))
-            monthList.add(MonthBean("June", selectedCurrentYear, 5, false))
-            monthList.add(MonthBean("July", selectedCurrentYear, 6, false))
-            monthList.add(MonthBean("Aug", selectedCurrentYear, 7, false))
-            monthList.add(MonthBean("Sep", selectedCurrentYear, 8, false))
-            monthList.add(MonthBean("Oct", selectedCurrentYear, 9, false))
-            monthList.add(MonthBean("Nov", selectedCurrentYear, 10, false))
-            monthList.add(MonthBean("Dec", selectedCurrentYear, 11, false))
+            monthList.add(
+                MonthBean(
+                    "Jan",
+                    selectedCurrentYear,
+                    0,
+                    false
+                )
+            )
+            monthList.add(
+                MonthBean(
+                    "Feb",
+                    selectedCurrentYear,
+                    1,
+                    false
+                )
+            )
+            monthList.add(
+                MonthBean(
+                    "Mar",
+                    selectedCurrentYear,
+                    2,
+                    false
+                )
+            )
+            monthList.add(
+                MonthBean(
+                    "Apr",
+                    selectedCurrentYear,
+                    3,
+                    false
+                )
+            )
+            monthList.add(
+                MonthBean(
+                    "May",
+                    selectedCurrentYear,
+                    4,
+                    false
+                )
+            )
+            monthList.add(
+                MonthBean(
+                    "Jun",
+                    selectedCurrentYear,
+                    5,
+                    false
+                )
+            )
+            monthList.add(
+                MonthBean(
+                    "Jul",
+                    selectedCurrentYear,
+                    6,
+                    false
+                )
+            )
+            monthList.add(
+                MonthBean(
+                    "Aug",
+                    selectedCurrentYear,
+                    7,
+                    false
+                )
+            )
+            monthList.add(
+                MonthBean(
+                    "Sep",
+                    selectedCurrentYear,
+                    8,
+                    false
+                )
+            )
+            monthList.add(
+                MonthBean(
+                    "Oct",
+                    selectedCurrentYear,
+                    9,
+                    false
+                )
+            )
+            monthList.add(
+                MonthBean(
+                    "Nov",
+                    selectedCurrentYear,
+                    10,
+                    false
+                )
+            )
+            monthList.add(
+                MonthBean(
+                    "Dec",
+                    selectedCurrentYear,
+                    11,
+                    false
+                )
+            )
 
         }
     }

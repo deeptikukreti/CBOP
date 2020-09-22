@@ -1,7 +1,6 @@
 package com.example.cbopproject.fragment
 
 import android.app.Activity
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,8 +13,7 @@ import com.example.cbopproject.activity.MainActivity
 import com.example.cbopproject.activity.SelectDateRange
 import com.example.cbopproject.adapter.DurationAdapter
 import com.example.cbopproject.adapter.UptimeAdapter
-import com.example.cbopproject.utils.CommonMethod
-import kotlinx.android.synthetic.main.fragment_e_o_s.*
+import com.example.cbopproject.utils.CalenderUtils
 import kotlinx.android.synthetic.main.fragment_e_o_s.durationListCard
 import kotlinx.android.synthetic.main.fragment_e_o_s.durationListRecyclerView
 import kotlinx.android.synthetic.main.fragment_e_o_s.durationTextView
@@ -27,7 +25,8 @@ import java.util.*
 class UptimeFragment : Fragment(), View.OnClickListener, DateRangeInterface {
    private var mainActivity: MainActivity? =null
     private var isDurationListOpen = false
-    private var durationList: Array<String> = resources.getStringArray(R.array.duration_list)
+    private var durationList: Array<String> =
+        arrayOf("All", "Last month", "Last 2 month", "Specific month", "Date Range")
     private lateinit var dateRangeInterface: DateRangeInterface
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,14 +58,14 @@ class UptimeFragment : Fragment(), View.OnClickListener, DateRangeInterface {
                     when(position){
                         0->{durationTextView.text = durationList[position]}
                         1->{ var lastMonth = Calendar.getInstance().get(Calendar.MONTH)
-                            durationTextView.text = durationList[position] + "(${CommonMethod.getMonth(
+                            durationTextView.text = durationList[position] + "(${CalenderUtils.getMonth(
                                 lastMonth
                             )})"}
                         2->{
                             var lastMonth = Calendar.getInstance().get(Calendar.MONTH)
                             var lastToLastMonth = Calendar.getInstance().get(Calendar.MONTH) - 1
                             durationTextView.text =
-                                durationList[position] + "(${CommonMethod.getMonth(lastToLastMonth)}-${CommonMethod.getMonth(
+                                durationList[position] + "(${CalenderUtils.getMonth(lastToLastMonth)}-${CalenderUtils.getMonth(
                                     lastMonth
                                 )})"
                         }
@@ -123,31 +122,22 @@ class UptimeFragment : Fragment(), View.OnClickListener, DateRangeInterface {
             for (i in selectedMonthsWithYear.indices) {
                 dateList.add(dateFormat.parse(selectedMonthsWithYear[i]))
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                maxDate = dateList.stream()
-                    .max(Date::compareTo)
-                    .get()
-                //Log.d("SelectedDateRange","maxDate=${maxDate}")
-                Log.d("SelectedDateRange", "maxDate=${CommonMethod.convertDateFormat(maxDate)}")
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                minDate = dateList.stream()
-                    .min(Date::compareTo)
-                    .get()
-                Log.d("SelectedDateRange", "minDate=${CommonMethod.convertDateFormat(minDate)}")
+            maxDate = CalenderUtils.getMaxDate(dateList)
+            Log.d("SelectedDateRange", "maxDate=${CalenderUtils.convertDateFormat(maxDate)}")
 
-                //E MMM dd hh:mm:ss GMT+05:30 yyyy
-            }
-            Log.d("SelectedDateRange", "gap=${CommonMethod.checkMonthGap(minDate, maxDate)}")
+            minDate = CalenderUtils.getMinDate(dateList)
+            Log.d("SelectedDateRange", "minDate=${CalenderUtils.convertDateFormat(minDate)}")
+
+            Log.d("SelectedDateRange", "gap=${CalenderUtils.checkMonthGap(minDate, maxDate)}")
             durationTextView.text =
-                "${CommonMethod.convertDateFormat(minDate)} - ${CommonMethod.convertDateFormat(
+                "${CalenderUtils.convertDateFormat(minDate)} - ${CalenderUtils.convertDateFormat(
                     maxDate
-                )}(${CommonMethod.checkMonthGap(
+                )}(${CalenderUtils.checkMonthGap(
                     minDate,
                     maxDate
                 ) + 1} months)"
         }else{
-            durationTextView.text ="${CommonMethod.convertDateFormat(dateFormat.parse(selectedMonthsWithYear[0]))}"
+            durationTextView.text ="${CalenderUtils.convertDateFormat(dateFormat.parse(selectedMonthsWithYear[0]))}"
         }
     }
     override fun onAttach(activity : Activity) {

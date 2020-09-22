@@ -1,8 +1,6 @@
 package com.example.cbopproject.fragment
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.cbopproject.MonthBean
 import com.example.cbopproject.R
 import com.example.cbopproject.`interface`.DateRangeInterface
 import com.example.cbopproject.activity.MainActivity
@@ -21,8 +18,12 @@ import com.example.cbopproject.adapter.DetailViewAdapter
 import com.example.cbopproject.adapter.DurationAdapter
 import com.example.cbopproject.adapter.ModelsOrVehiclesAdapter
 import com.example.cbopproject.adapter.SortByAdapter
-import com.example.cbopproject.utils.CommonMethod
-import com.example.cbopproject.utils.CommonMethod.Companion.getMonth
+import com.example.cbopproject.utils.CalenderUtils
+import com.example.cbopproject.utils.CalenderUtils.Companion.checkMonthGap
+import com.example.cbopproject.utils.CalenderUtils.Companion.convertDateFormat
+import com.example.cbopproject.utils.CalenderUtils.Companion.getMaxDate
+import com.example.cbopproject.utils.CalenderUtils.Companion.getMinDate
+import com.example.cbopproject.utils.CalenderUtils.Companion.getMonth
 import kotlinx.android.synthetic.main.fragment_e_o_s.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,9 +31,11 @@ import kotlin.collections.ArrayList
 
 class EOSFragment : Fragment(), View.OnClickListener, DateRangeInterface {
     private var mainActivity: MainActivity? = null
-    private var sortBYList: Array<String> = resources.getStringArray(R.array.sort_by_array)
-    private var durationList: Array<String> = resources.getStringArray(R.array.duration_list)
-    private var vehicleOrModelList: Array<String> =resources.getStringArray(R.array.vehicle_or_model_list)
+    private var sortBYList: Array<String> = arrayOf("All Vehicles", "Model", "Individual Vehicle")
+    private var durationList: Array<String> =
+        arrayOf("All", "Last month", "Last 2 month", "Specific month", "Date Range")
+    private var vehicleOrModelList: Array<String> =
+        arrayOf("MH 20 GP 2029", "MH 20 GP 2028", "MH 20 GP 2027", "MH 20 GP 2026", "MH 20 GP 2025")
     private var isFilterByListOpen = false
     private var isSeachByVin = 0
     private var isModelListOpen = false
@@ -82,11 +85,16 @@ class EOSFragment : Fragment(), View.OnClickListener, DateRangeInterface {
             durationList,
             object : DurationAdapter.DurationInterface {
                 override fun onPositionClicked(position: Int) {
-                    when(position){
-                        0->{durationTextView.text = durationList[position]}
-                        1->{ var lastMonth = Calendar.getInstance().get(Calendar.MONTH)
-                            durationTextView.text = durationList[position] + "(${getMonth(lastMonth)})"}
-                        2->{
+                    when (position) {
+                        0 -> {
+                            durationTextView.text = durationList[position]
+                        }
+                        1 -> {
+                            var lastMonth = Calendar.getInstance().get(Calendar.MONTH)
+                            durationTextView.text =
+                                durationList[position] + "(${getMonth(lastMonth)})"
+                        }
+                        2 -> {
                             var lastMonth = Calendar.getInstance().get(Calendar.MONTH)
                             var lastToLastMonth = Calendar.getInstance().get(Calendar.MONTH) - 1
                             durationTextView.text =
@@ -94,12 +102,14 @@ class EOSFragment : Fragment(), View.OnClickListener, DateRangeInterface {
                                     lastMonth
                                 )})"
                         }
-                        3->{ SelectDateRange.openSelectDateRangeDialog(
-                            mainActivity!!,
-                            dateRangeInterface,
-                            false
-                        )}
-                        4->{
+                        3 -> {
+                            SelectDateRange.openSelectDateRangeDialog(
+                                mainActivity!!,
+                                dateRangeInterface,
+                                false
+                            )
+                        }
+                        4 -> {
                             SelectDateRange.openSelectDateRangeDialog(
                                 mainActivity!!,
                                 dateRangeInterface,
@@ -306,38 +316,27 @@ class EOSFragment : Fragment(), View.OnClickListener, DateRangeInterface {
     var dateList: ArrayList<Date> = ArrayList()
     lateinit var minDate: Date
     lateinit var maxDate: Date
-    override fun selectedMonths(selectedMonthsWithYear: ArrayList<String>,isDateRange:Boolean) {
+    override fun selectedMonths(selectedMonthsWithYear: ArrayList<String>, isDateRange: Boolean) {
         dateList.clear()
         var dateFormat = SimpleDateFormat("dd-MM-yyyy")
         if (isDateRange) {
             for (i in selectedMonthsWithYear.indices) {
                 dateList.add(dateFormat.parse(selectedMonthsWithYear[i]))
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                maxDate = dateList.stream()
-                    .max(Date::compareTo)
-                    .get()
-                //Log.d("SelectedDateRange","maxDate=${maxDate}")
-                Log.d("SelectedDateRange", "maxDate=${CommonMethod.convertDateFormat(maxDate)}")
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                minDate = dateList.stream()
-                    .min(Date::compareTo)
-                    .get()
-                Log.d("SelectedDateRange", "minDate=${CommonMethod.convertDateFormat(minDate)}")
+            maxDate = getMaxDate(dateList)
+            Log.d("SelectedDateRange", "maxDate=${convertDateFormat(maxDate)}")
 
-                //E MMM dd hh:mm:ss GMT+05:30 yyyy
-            }
-            Log.d("SelectedDateRange", "gap=${CommonMethod.checkMonthGap(minDate, maxDate)}")
+            minDate = getMinDate(dateList)
+            Log.d("SelectedDateRange", "minDate=${convertDateFormat(minDate)}")
+
+            Log.d("SelectedDateRange", "gap=${checkMonthGap(minDate, maxDate)}")
             durationTextView.text =
-                "${CommonMethod.convertDateFormat(minDate)} - ${CommonMethod.convertDateFormat(
-                    maxDate
-                )}(${CommonMethod.checkMonthGap(
-                    minDate,
+                "${convertDateFormat(minDate)} - ${convertDateFormat(maxDate)}(${checkMonthGap(minDate,
                     maxDate
                 ) + 1} months)"
-        }else{
-            durationTextView.text ="${CommonMethod.convertDateFormat(dateFormat.parse(selectedMonthsWithYear[0]))}"
+        } else {
+            durationTextView.text =
+                "${CalenderUtils.convertDateFormat(dateFormat.parse(selectedMonthsWithYear[0]))}"
         }
     }
 }
