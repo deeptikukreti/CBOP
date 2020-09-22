@@ -1,5 +1,7 @@
 package com.example.cbopproject.`interface`
 
+import com.example.cbopproject.MonthBean
+
 interface DateRangeInterface {
-    fun selectedMonths(month:String,isAdd:Boolean)
+    fun selectedMonths(selectedMonthsWithYear: ArrayList<String>)
 }

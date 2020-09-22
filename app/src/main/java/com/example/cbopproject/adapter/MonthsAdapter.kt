@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cbopproject.MonthBean
 import com.example.cbopproject.R
 import com.example.cbopproject.activity.SelectDateRange
+import com.example.cbopproject.utils.CommonMethod
 import kotlinx.android.synthetic.main.single_month_item_layout.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -65,7 +66,7 @@ class MonthsAdapter(
             if (!monthsList[position].isSelected && SelectDateRange.selectedMonthsList.size < 6) {
                 if (SelectDateRange.selectedMonthsList.size > 0) {
 
-                    if (isValidateSelectedMonthIsUptoSixMonths("1-${monthsList[position].position+1}-${monthsList[position].year}")) {
+                    if (isValidateSelectedMonthIsUptoSixMonths("1-${monthsList[position].position + 1}-${monthsList[position].year}")) {
                         monthsList[position].isSelected = true
                         selectedMonth.onPositionClicked(position, false)
                     } else {
@@ -89,28 +90,21 @@ class MonthsAdapter(
     fun isValidateSelectedMonthIsUptoSixMonths(endDate: String): Boolean {
         var isvalidate = true
         var dateFormat = SimpleDateFormat("dd-MM-yyyy")
-
-            var monthGap = checkMonthGap(
-                dateFormat.parse(SelectDateRange.selectedMonthsWithYear[0]),
+        for (i in SelectDateRange.selectedMonthsWithYear.indices) {
+            var monthGap = CommonMethod.checkMonthGap(
+                dateFormat.parse(SelectDateRange.selectedMonthsWithYear[i]),
                 dateFormat.parse(endDate)
             )
-           if(monthGap>5||monthGap<-5){
-               isvalidate=false
-           }
+            if (monthGap > 5 || monthGap < -5) {
+                isvalidate = false
+                break
+            }
+        }
 
         return isvalidate
     }
 
-    fun checkMonthGap(startDate: Date, endDate: Date): Int {
-        val startCalendar: Calendar = GregorianCalendar()
-        startCalendar.time = startDate
-        val endCalendar: Calendar = GregorianCalendar()
-        endCalendar.time = endDate
 
-        val diffYear: Int = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR)
-        return diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH)
-
-    }
 
     //this method is giving the size of the list
     override fun getItemCount(): Int {

@@ -36,6 +36,7 @@ class SelectDateRange {
             dialog.window!!.setGravity(Gravity.CENTER)
             dialog.setCanceledOnTouchOutside(false)
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            clearData()
             currentMonth = Calendar.getInstance().get(Calendar.MONTH)
             currentYear = Calendar.getInstance().get(Calendar.YEAR)
             selectedCurrentYear = Calendar.getInstance().get(Calendar.YEAR)
@@ -45,6 +46,7 @@ class SelectDateRange {
             //  var monthLisR.array.months_array
             setMonthsAdapter(dialog.monthsListRecyclerView, activity!!)
             dialog.closeDialogButton.setOnClickListener {
+                clearData()
                 dialog.dismiss()
             }
             dialog.ivPreviousYear.setOnClickListener {
@@ -62,7 +64,18 @@ class SelectDateRange {
                 monthsAdapter.notifyDataSetChanged()
                 setMonthsAdapter(dialog.monthsListRecyclerView, activity!!)
             }
+            dialog.selectRangeButton.setOnClickListener {
+                dateRangeInterface.selectedMonths(selectedMonthsWithYear)
+                clearData()
+                dialog.dismiss()
+            }
             dialog?.show()
+        }
+
+        private fun clearData() {
+            monthList.clear()
+            selectedMonthsList.clear()
+            selectedMonthsWithYear.clear()
         }
 
         private fun setMonthsAdapter(monthsListRecyclerView: RecyclerView?, activity: Activity?) {
