@@ -19,7 +19,7 @@ class SortByAdapter(var context : Context, var searchList:Array<String>, var cli
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(position).textView.text=searchList[position]
-     holder.itemView.setOnClickListener {
+        holder.itemView.setOnClickListener {
          clickedPosition.onPositionClicked(position)
      }
     }

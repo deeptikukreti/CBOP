@@ -24,9 +24,11 @@ import java.util.*
 
 class UptimeFragment : Fragment(), View.OnClickListener, DateRangeInterface {
    private var mainActivity: MainActivity? =null
+    /**check is duration dropdown open or not*/
     private var isDurationListOpen = false
     private var durationList: Array<String> =
         arrayOf("All", "Last month", "Last 2 month", "Specific month", "Date Range")
+    /**date range interface*/
     private lateinit var dateRangeInterface: DateRangeInterface
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +38,6 @@ class UptimeFragment : Fragment(), View.OnClickListener, DateRangeInterface {
         return inflater.inflate(R.layout.fragment_uptime, container, false)
 
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dateRangeInterface = this
@@ -48,7 +49,7 @@ class UptimeFragment : Fragment(), View.OnClickListener, DateRangeInterface {
         })
         setDurationData()
     }
-
+    /***set list of duration in adapter*/
     private fun setDurationData() {
         durationListRecyclerView.adapter = DurationAdapter(
             mainActivity!!,
@@ -89,6 +90,8 @@ class UptimeFragment : Fragment(), View.OnClickListener, DateRangeInterface {
     override fun onClick(v: View?) {
        when(v?.id){
            R.id.durationTextView -> {
+               /**if isDurationListOpen=true then set downArrow image
+                * else upArrow image and hide dropdown layout*/
                if (isDurationListOpen) {
                    isDurationListOpen = false
                    durationTextView.setCompoundDrawablesWithIntrinsicBounds(
@@ -112,6 +115,7 @@ class UptimeFragment : Fragment(), View.OnClickListener, DateRangeInterface {
        }
 
     }
+    /****set data for date range or select specific month from date interface*/
     var dateList: ArrayList<Date> = ArrayList()
     lateinit var minDate: Date
     lateinit var maxDate: Date
@@ -146,6 +150,4 @@ class UptimeFragment : Fragment(), View.OnClickListener, DateRangeInterface {
             mainActivity = activity
         }
     }
-
-
 }

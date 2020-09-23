@@ -27,12 +27,18 @@ import kotlin.collections.ArrayList
 class SelectDateRange {
     companion object {
         private var monthList: ArrayList<MonthBean> = ArrayList()
+        /***selected months added in this list */
         var selectedMonthsList: ArrayList<MonthBean> = ArrayList()
+        /***add selected month and year in form of date*/
         var selectedMonthsWithYear: ArrayList<String> = ArrayList()
         private lateinit var monthsAdapter: MonthsAdapter
+        /****current year */
         var currentYear: Int = 0
+        /**selected year*/
         var selectedCurrentYear: Int = 0
+        /***current year current month*/
         var currentMonth: Int = 0
+        /***common method for open Date Range or select specific month dialog*/
         fun openSelectDateRangeDialog(
             activity: Activity?,
             dateRangeInterface: DateRangeInterface,
@@ -45,12 +51,15 @@ class SelectDateRange {
             dialog.setCanceledOnTouchOutside(false)
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             clearData()
+            /**set cuurent year and current month*/
             currentMonth = Calendar.getInstance().get(Calendar.MONTH)
             currentYear = Calendar.getInstance().get(Calendar.YEAR)
             selectedCurrentYear = Calendar.getInstance().get(Calendar.YEAR)
             addMonths()
             dialog.yearTextView.text = selectedCurrentYear.toString()
+            /****if the selected year is current year then hide next button*/
             dialog.ivNextYear.visibility = View.INVISIBLE
+            /***if there is no selection then disable okay button in dialog*/
             dialog.selectRangeButton.isEnabled = false
             dialog.selectRangeButton.alpha = 0.5f
             //  var monthLisR.array.months_array
@@ -75,7 +84,9 @@ class SelectDateRange {
                 setMonthsAdapter(dialog, dialog.monthsListRecyclerView, isDateRange, activity!!)
             }
             dialog.selectRangeButton.setOnClickListener {
+                /**if we select date range then isDateRange is true and if we select specific month option then isDateRange is false */
                 if (isDateRange) {
+                    /***for date range selected month list should be equals or grater than 2*/
                     if (selectedMonthsList.size >= 2) {
                         dateRangeInterface.selectedMonths(selectedMonthsWithYear, true)
                         clearData()
@@ -90,13 +101,13 @@ class SelectDateRange {
             }
             dialog?.show()
         }
-
+        /***when we cancel or click on Ok button then clear all selected data*/
         private fun clearData() {
             monthList.clear()
             selectedMonthsList.clear()
             selectedMonthsWithYear.clear()
         }
-
+      /***initialize adapter on click of select next and previous year*/
         private fun setMonthsAdapter(
             dialog: Dialog,
             monthsListRecyclerView: RecyclerView?,
@@ -104,7 +115,10 @@ class SelectDateRange {
             activity: Activity?
         ) {
             monthList.clear()
+          /***initialize list for selected year*/
             addMonths()
+          /**Check weather their is any selected month for this year or not
+           * if present then replace that value in month list*/
             for (i in selectedMonthsList.indices) {
                 if (selectedMonthsList[i].year == selectedCurrentYear) {
                     monthList.removeAt(selectedMonthsList[i].position)
@@ -114,6 +128,7 @@ class SelectDateRange {
             monthsAdapter = MonthsAdapter(activity!!, monthList, isDateRange, object :
                 MonthsAdapter.SelectedMonthInterface {
                 override fun onPositionClicked(position: Int, isSelected: Boolean) {
+                    /**if isSelected true then remove data else add data**/
                     if (isSelected) {
                         selectedMonthsList.remove(monthList[position])
                         selectedMonthsWithYear.remove("01-${monthList[position].position + 1}-$selectedCurrentYear")
@@ -123,6 +138,7 @@ class SelectDateRange {
                         selectedMonthsWithYear.add("01-${monthList[position].position + 1}-$selectedCurrentYear")
 
                     }
+                    /**check if selected month list is zero then disable selectRangeButton*/
                     if (selectedMonthsList.size > 0) {
                         dialog.selectRangeButton.isEnabled = true
                         dialog.selectRangeButton.alpha = 1f
@@ -130,14 +146,16 @@ class SelectDateRange {
                         dialog.selectRangeButton.isEnabled = false
                         dialog.selectRangeButton.alpha = 0.5f
                     }
+
+                    /** if isDateRange is true and selectedMonthList size is greater than one
+                     *then get min and max date from slectedMonthYearList and select all months between min and max dates
+                     * then again reinitialize adapter **/
                     if (selectedMonthsList.size > 1 && isDateRange) {
                         getMinAndMaxDatesFromSelectedDates()
                         setMonthsAdapter(dialog,monthsListRecyclerView,isDateRange,activity)
                     }else{
                         monthsAdapter.notifyDataSetChanged()
                     }
-
-
                 }
 
             })
@@ -148,6 +166,7 @@ class SelectDateRange {
         var dateList: ArrayList<Date> = ArrayList()
         lateinit var minDate: Date
         lateinit var maxDate: Date
+        /**get min and max dates*/
         fun getMinAndMaxDatesFromSelectedDates() {
             dateList.clear()
             var dateFormat = SimpleDateFormat("dd-MM-yyyy")
@@ -160,7 +179,7 @@ class SelectDateRange {
             var dateFormat2 = SimpleDateFormat("MMM-yyyy")
             setDatesBetweenDateRange(dateFormat2.format(minDate), dateFormat2.format(maxDate))
         }
-
+          /**select all months between min and max dates*/
         fun setDatesBetweenDateRange(beignDate: String, endDate: String) {
             val formater: DateFormat = SimpleDateFormat("MMM-yyyy")
 
@@ -197,6 +216,8 @@ class SelectDateRange {
                     }else{
                         selectMonthInNumber=(SimpleDateFormat("MM").format(beginCalendar.time).toInt() - 2)
                     }
+
+                    /** add only when selectedMonthsList do not contain the same data */
                     if (!selectedMonthsList.contains(
                             MonthBean(
                                 splitDate[0],

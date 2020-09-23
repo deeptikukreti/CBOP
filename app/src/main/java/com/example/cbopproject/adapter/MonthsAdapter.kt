@@ -34,6 +34,7 @@ class MonthsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         monthsList[position].year = SelectDateRange.selectedCurrentYear
         holder.bindItem(position).monthNameTextView.text = monthsList[position].monthName
+        /**if the selected year is current year then disable all months after current months*/
         if (SelectDateRange.selectedCurrentYear == SelectDateRange.currentYear) {
             if (position > SelectDateRange.currentMonth) {
                 holder.bindItem(position).isEnabled = false
@@ -43,7 +44,7 @@ class MonthsAdapter(
                 holder.bindItem(position).alpha = 1f
             }
         }
-
+/**set background*/
         if (monthsList[position].isSelected) {
             holder.bindItem(position).monthLayout.setBackgroundResource(R.drawable.selected_month_bg)
             holder.bindItem(position).monthNameTextView.setTextColor(
@@ -63,8 +64,15 @@ class MonthsAdapter(
         }
         holder.itemView.setOnClickListener {
             if (isDateRange) {
+                /**if isSelected false and selected months is less than 6*/
                 if (!monthsList[position].isSelected && SelectDateRange.selectedMonthsList.size < 6) {
+                    /**if selectedMonthsList size is  not zero  only then the condition is true
+                     * else directly add that item in list */
                     if (SelectDateRange.selectedMonthsList.size > 0) {
+
+                        /**if the month gap between existing and selected month
+                         *  is less than or equals to 6 then the condition is true
+                         *  else print toast message*/
                         if (isValidateSelectedMonthIsUptoSixMonths("1-${monthsList[position].position + 1}-${monthsList[position].year}")) {
                             monthsList[position].isSelected = true
                             selectedMonth.onPositionClicked(position, false)
@@ -81,6 +89,8 @@ class MonthsAdapter(
                         selectedMonth.onPositionClicked(position, false)
                     }
                 } else {
+                    /**if selected month is false and list size is 6 theen show toast message
+                     * else selected month is true*/
                     if (SelectDateRange.selectedMonthsList.size == 6 && !monthsList[position].isSelected) {
                         Toast.makeText(context, "You can select upto 6 months", Toast.LENGTH_LONG)
                             .show()
@@ -91,6 +101,7 @@ class MonthsAdapter(
 
                 }
             } else {
+                /**for specific date or isDateRange is false*/
                 if (!monthsList[position].isSelected && SelectDateRange.selectedMonthsList.size < 1) {
                     monthsList[position].isSelected = true
                     selectedMonth.onPositionClicked(position, false)
@@ -105,6 +116,8 @@ class MonthsAdapter(
 
     }
 
+    /** check if the selected month gap is less then or equals to 6 then isValidate = true
+     * else isValidate=false*/
     fun isValidateSelectedMonthIsUptoSixMonths(endDate: String): Boolean {
         var isvalidate = true
         var dateFormat = SimpleDateFormat("dd-MM-yyyy")

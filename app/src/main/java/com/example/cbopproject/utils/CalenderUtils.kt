@@ -7,6 +7,7 @@ import java.util.*
 
 class CalenderUtils {
     companion object {
+        /***check difference between two months*/
         fun checkMonthGap(startDate: Date, endDate: Date): Int {
             val startCalendar: Calendar = GregorianCalendar()
             startCalendar.time = startDate
@@ -15,7 +16,7 @@ class CalenderUtils {
             val diffYear: Int = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR)
             return diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH)
         }
-
+          /***conver date from one format to another*/
         fun convertDateFormat(date: Date): String {
             var dateFormat = SimpleDateFormat("MMM yyyy")
             return dateFormat.format(date)

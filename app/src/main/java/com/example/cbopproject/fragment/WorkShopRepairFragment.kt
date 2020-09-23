@@ -19,6 +19,7 @@ import com.example.cbopproject.adapter.DurationAdapter
 import com.example.cbopproject.adapter.ModelsOrVehiclesAdapter
 import com.example.cbopproject.adapter.SortByAdapter
 import com.example.cbopproject.utils.CalenderUtils
+import kotlinx.android.synthetic.main.fragment_e_o_s.*
 import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.crossLayout
 import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.detailViewBg
 import kotlinx.android.synthetic.main.fragment_work_shop_repair_fragment.detailViewLayout
@@ -52,11 +53,16 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener, DateRangeInterfa
         arrayOf("All", "Last month", "Last 2 month", "Specific month", "Date Range")
     private var vehicleOrModelList: Array<String> =
         arrayOf("MH 20 GP 2029", "MH 20 GP 2028", "MH 20 GP 2027", "MH 20 GP 2026", "MH 20 GP 2025")
+    /**check is sortlist dropdown open or not*/
     private var isFilterByListOpen = false
+    /**check is search dropdown open or not*/
     private var isSeachByVin = 0
+    /**check model list dropdown open or not*/
     private var isModelListOpen = false
+    /**check is duration dropdown open or not*/
     private var isDurationListOpen = false
     private var modelsOrVehiclesAdapter: ModelsOrVehiclesAdapter? = null
+    /**date range interface*/
     private lateinit var dateRangeInterface: DateRangeInterface
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -93,6 +99,7 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener, DateRangeInterfa
         setModelOrVehiclesList()
         setDurationData()
     }
+    /***set list of duration in adapter*/
     private fun setDurationData() {
         durationListRecyclerView.adapter = DurationAdapter(
             mainActivity!!,
@@ -130,6 +137,7 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener, DateRangeInterfa
 
             })
     }
+    /***set filter by list adapter*/
     private fun setSortByListAdapter() {
         sortRecyclerView.adapter = SortByAdapter(
             mainActivity!!,
@@ -137,30 +145,39 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener, DateRangeInterfa
             object : SortByAdapter.SearchFilterInterface {
                 override fun onPositionClicked(position: Int) {
                     filterByTextView.text = sortBYList[position]
+
                     if (position != 0) {
+                        /**if position is 1 than model list dropdown is visible else search layout is visible */
                         searchOrDropdownLayout.visibility = View.VISIBLE
                         if (position == 1) {
                             isSeachByVin = 0
                             searchByVINEditText.setText("")
                             searchLayout.visibility = View.GONE
+                            vehiclesListCard.visibility = View.GONE
                             modelTextView.visibility = View.VISIBLE
                         } else {
                             isSeachByVin = 1
                             modelTextView.setText("")
                             modelTextView.visibility = View.GONE
+                            vehiclesListCard.visibility = View.GONE
                             searchLayout.visibility = View.VISIBLE
                         }
-                    } else {
+                    }
+                    /**if position is equals to zero*/
+                    else {
                         resetData()
                     }
                 }
 
             })
     }
+    /**set data for model List and searchList**/
     private fun setModelOrVehiclesList() {
         modelsOrVehiclesAdapter = ModelsOrVehiclesAdapter(mainActivity!!, vehicleOrModelList,
             object : ModelsOrVehiclesAdapter.SearchFilterInterface {
                 override fun onPositionClicked(position: Int) {
+                    /**if isSearchByVin == 1 then search is visible
+                     * else modelList view is visible*/
                     if (isSeachByVin == 1) {
                         searchByVINEditText.setText(vehicleOrModelList[position])
                         vehiclesListCard.visibility = View.GONE
@@ -181,6 +198,7 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener, DateRangeInterfa
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                /**if there is data in searchByVINEditText then crossLayout is visible*/
                 vehiclesListCard.visibility = View.VISIBLE
                 if (s != null) {
                     crossLayout.visibility = View.VISIBLE
@@ -189,21 +207,24 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener, DateRangeInterfa
 
         })
     }
-    private fun resetData(){
+    /**when click on sort by list then reset data of model List and search list*/
+    private fun resetData() {
         isSeachByVin = 0
-        isModelListOpen=false
+        isModelListOpen = false
         modelTextView.setText("")
         searchByVINEditText.setText("")
         searchOrDropdownLayout.visibility = View.GONE
         searchLayout.visibility = View.GONE
         modelTextView.visibility = View.GONE
-        vehiclesListCard.visibility=View.GONE
+        vehiclesListCard.visibility = View.GONE
     }
     override fun onClick(v: View?) {
-        when(v?.id){
+        when (v?.id) {
             R.id.filterByTextView -> {
-                resetData()
-                vehiclesListCard.visibility=View.GONE
+                //resetData()
+                vehiclesListCard.visibility = View.GONE
+                /**if isFilterByListOpen=true then set downArrow image
+                 * else upArrow image and hide dropdown layout*/
                 if (isFilterByListOpen) {
                     isFilterByListOpen = false
                     filterByTextView.setCompoundDrawablesWithIntrinsicBounds(
@@ -225,6 +246,8 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener, DateRangeInterfa
                 }
             }
             R.id.modelTextView -> {
+                /**if isModelListOpen=true then set downArrow image
+                 * else upArrow image and hide dropdown layout*/
                 if (isModelListOpen) {
                     isModelListOpen = false
                     modelTextView.setCompoundDrawablesWithIntrinsicBounds(
@@ -246,6 +269,8 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener, DateRangeInterfa
                 }
             }
             R.id.durationTextView -> {
+                /**if isDurationListOpen=true then set downArrow image
+                 * else upArrow image and hide dropdown layout*/
                 if (isDurationListOpen) {
                     isDurationListOpen = false
                     durationTextView.setCompoundDrawablesWithIntrinsicBounds(
@@ -267,34 +292,51 @@ class WorkShopRepairFragment : Fragment(),View.OnClickListener, DateRangeInterfa
                 }
             }
             R.id.crossLayout -> {
+                /**empty search field and hide searchlist data */
                 searchByVINEditText.setText("")
                 vehiclesListCard.visibility = View.GONE
                 crossLayout.visibility = View.GONE
             }
-            R.id.overviewLayout ->{
+            R.id.overviewLayout -> {
+                /**hide detailview layout show overviewLayout */
                 changeOverviewDetailViewBackground(
                     R.color.dark_blue,
                     R.color.light_grey
                 )
-                detailViewSummaryLayout.visibility=View.GONE
-                overviewSummaryLayout.visibility=View.VISIBLE
+                detailViewSummaryLayout.visibility = View.GONE
+                overviewSummaryLayout.visibility = View.VISIBLE
             }
-            R.id.detailViewLayout ->{
+            R.id.detailViewLayout -> {
+                /**hide overviewLayout layout show detailViewLayout */
                 changeOverviewDetailViewBackground(
                     R.color.light_grey,
                     R.color.dark_blue
                 )
-                overviewSummaryLayout.visibility=View.GONE
-                detailViewSummaryLayout.visibility=View.VISIBLE
+                overviewSummaryLayout.visibility = View.GONE
+                detailViewSummaryLayout.visibility = View.VISIBLE
             }
         }
     }
-    private fun changeOverviewDetailViewBackground(overviewColor:Int,detailViewColor:Int){
-        overviewBg.backgroundTintList = ContextCompat.getColorStateList(mainActivity!!, overviewColor);
-        overViewTextView.setTextColor(ContextCompat.getColorStateList(mainActivity!!, overviewColor))
-        detailViewBg.backgroundTintList = ContextCompat.getColorStateList(mainActivity!!, detailViewColor);
-        detailViewTextView.setTextColor( ContextCompat.getColorStateList(mainActivity!!, detailViewColor))
+    /***change backround of selected layout*/
+    private fun changeOverviewDetailViewBackground(overviewColor: Int, detailViewColor: Int) {
+        overviewBg.backgroundTintList =
+            ContextCompat.getColorStateList(mainActivity!!, overviewColor);
+        overViewTextView.setTextColor(
+            ContextCompat.getColorStateList(
+                mainActivity!!,
+                overviewColor
+            )
+        )
+        detailViewBg.backgroundTintList =
+            ContextCompat.getColorStateList(mainActivity!!, detailViewColor);
+        detailViewTextView.setTextColor(
+            ContextCompat.getColorStateList(
+                mainActivity!!,
+                detailViewColor
+            )
+        )
     }
+    /****set data for date range or select specific month from date interface*/
     var dateList: ArrayList<Date> = ArrayList()
     lateinit var minDate: Date
     lateinit var maxDate: Date

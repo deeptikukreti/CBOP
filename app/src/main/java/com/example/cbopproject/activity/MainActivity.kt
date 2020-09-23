@@ -10,8 +10,7 @@ import com.example.cbopproject.fragment.UptimeFragment
 import com.example.cbopproject.fragment.WorkShopRepairFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(),View.OnClickListener {
-    var headerList: ArrayList<String> = ArrayList()
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,18 +18,20 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
     }
 
     private fun viewInitialization() {
-      eosRadioBtn.isChecked=true
-      loadFragment(EOSFragment())
+        eosRadioBtn.isChecked = true
+        /**set default fragment*/
+        loadFragment(EOSFragment())
 
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            when(checkedId){
-                R.id.eosRadioBtn ->{
+            when (checkedId) {
+                /**set fragment on click of selected radio button*/
+                R.id.eosRadioBtn -> {
                     loadFragment(EOSFragment())
                 }
-                R.id.workShopRepairRadioBtn ->{
+                R.id.workShopRepairRadioBtn -> {
                     loadFragment(WorkShopRepairFragment())
                 }
-                R.id.upTimeRadioBtn ->{
+                R.id.upTimeRadioBtn -> {
                     loadFragment(UptimeFragment())
                 }
             }
@@ -38,17 +39,13 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-       when(v?.id){
-//           R.id.eosRadioBtn ->{
-//               loadFragment(EOSFragment())
-//           }
-//           R.id.workShopRepairRadioBtn ->{
-//               loadFragment(WorkShopRepairFragmnet())
-//           }
-       }
+        when (v?.id) {
+
+        }
     }
 
-    private fun loadFragment(fragment: Fragment){
+    /**method for add or replace a fragment*/
+    private fun loadFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, fragment, "fragmentTag")
